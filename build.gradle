@@ -1,13 +1,16 @@
 plugins {
     id 'java'
     id 'application'
-
 }
-
 
 ext {
     vertxVersion = '3.8.3'
     rxVersion = '2.2.20'
+    javaMainClass = 'com.nxastudios.acetato.delivery.http.Application'
+}
+
+application {
+    mainClassName = javaMainClass
 }
 
 group 'com.nxastudios.acetato'
@@ -31,12 +34,14 @@ dependencies {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation("org.assertj:assertj-core:3.17.2")
+    testCompile 'org.mockito:mockito-core:2.25.0'
 }
 
 jar {
     manifest {
         attributes(
-                'Main-Class': 'com.nxastudios.acetato.delivery.http.Application'
+                'Main-Class': javaMainClass
         )
     }
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
