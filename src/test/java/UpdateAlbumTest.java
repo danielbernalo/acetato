@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class UpdateAlbumTest {
-    private static final String ID_ALBUM = "123";
+    private static final AlbumId ID_ALBUM = new AlbumId("123-abc-456");
     private static final String TITLE = "anAlbum";
     private static final Long RELEASE_DATE = 1L;
     private static final Artist ARTIST = giveNewArtist();
@@ -66,7 +66,7 @@ public class UpdateAlbumTest {
         when(repository.put(album)).thenReturn(Completable.complete());
     }
 
-    private void giveAnAlbumFrom(String idAlbum, String title, Long releaseDate, List<Artist> artists, List<Track> tracks, AlbumType type) {
+    private void giveAnAlbumFrom(AlbumId idAlbum, String title, Long releaseDate, List<Artist> artists, List<Track> tracks, AlbumType type) {
         album = new Album.Builder()
                 .withId(idAlbum)
                 .withTitle(title)

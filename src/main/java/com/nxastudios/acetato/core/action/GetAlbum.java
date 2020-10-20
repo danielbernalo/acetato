@@ -1,6 +1,7 @@
 package com.nxastudios.acetato.core.action;
 
 import com.nxastudios.acetato.core.domain.Album;
+import com.nxastudios.acetato.core.domain.AlbumId;
 import com.nxastudios.acetato.core.domain.Albums;
 import io.reactivex.Single;
 
@@ -11,7 +12,7 @@ public class GetAlbum {
         this.albumsRepository = albumsRepository;
     }
 
-    public Single<Album> execute(String idAlbum) {
+    public Single<Album> execute(AlbumId idAlbum) {
         return albumsRepository.getOne(idAlbum);
     }
 }

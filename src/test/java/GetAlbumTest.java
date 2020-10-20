@@ -1,5 +1,6 @@
 import com.nxastudios.acetato.core.action.GetAlbum;
 import com.nxastudios.acetato.core.domain.Album;
+import com.nxastudios.acetato.core.domain.AlbumId;
 import com.nxastudios.acetato.core.domain.Albums;
 import io.reactivex.Single;
 import org.junit.Test;
@@ -11,7 +12,7 @@ public class GetAlbumTest {
     private Album album;
     private Albums albumsRepository;
     private GetAlbum action;
-    private String idAlbum = "1";
+    private AlbumId idAlbum = new AlbumId("123-bar1-123");
     private Single<Album> result;
 
     @Test
@@ -25,11 +26,11 @@ public class GetAlbumTest {
         whenGetAlbumExecute();
 
         //then
-        thenGetAnAlbumSuccefully();
+        thenGetAnAlbumSuccessfully();
     }
 
-    private void thenGetAnAlbumSuccefully() {
-        result.test().assertValue(it -> it.getIdAlbum().equals(idAlbum));
+    private void thenGetAnAlbumSuccessfully() {
+        result.test().assertValue(it -> it.getIdAlbum().equals(idAlbum.get()));
     }
 
     private void whenGetAlbumExecute() {
@@ -45,7 +46,7 @@ public class GetAlbumTest {
         when(albumsRepository.getOne(idAlbum)).thenReturn(Single.just(album));
     }
 
-    private void givenNewAlbumFrom(String idAlbum) {
+    private void givenNewAlbumFrom(AlbumId idAlbum) {
         album = new Album.Builder().withId(idAlbum).build();
     }
 }

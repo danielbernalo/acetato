@@ -1,5 +1,6 @@
 import com.nxastudios.acetato.core.action.ListAlbum;
 import com.nxastudios.acetato.core.domain.Album;
+import com.nxastudios.acetato.core.domain.AlbumId;
 import com.nxastudios.acetato.core.domain.Albums;
 import io.reactivex.Single;
 import org.junit.Test;
@@ -12,9 +13,9 @@ import static org.mockito.Mockito.when;
 public class ListAlbumTest {
     private Album album;
     private Albums albumsRepository;
-    private String idAlbum = "1";
+    private AlbumId idAlbum = new AlbumId("1-b-1");
     private ListAlbum action;
-    private Single<Map<String, Album>> result;
+    private Single<Map<AlbumId, Album>> result;
 
     @Test
     public void listAlbumSuccessfully() {
@@ -47,7 +48,7 @@ public class ListAlbumTest {
         result = action.execute();
     }
 
-    private void givenNewAlbumFrom(String idAlbum) {
+    private void givenNewAlbumFrom(AlbumId idAlbum) {
         album = new Album.Builder().withId(idAlbum).build();
     }
 

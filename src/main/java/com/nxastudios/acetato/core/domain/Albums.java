@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface Albums {
     Completable put(Album album);
-    Single<Album> getOne(String idAlbum);
-    Single<Map<String,Album>> list();
-    Completable remove(String idAlbum);
+    Single<Album> getOne(AlbumId idAlbum);
+    Single<Map<AlbumId,Album>> list();
+    Completable remove(AlbumId idAlbum);
 }
