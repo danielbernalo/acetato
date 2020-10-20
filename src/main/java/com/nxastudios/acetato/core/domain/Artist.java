@@ -27,4 +27,8 @@ public class Artist {
             return new Artist(idArtist, name);
         }
     }
+
+    public String getIdArtist() {
+        return idArtist;
+    }
 }
