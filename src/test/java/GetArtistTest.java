@@ -1,5 +1,6 @@
 import com.nxastudios.acetato.core.action.GetArtist;
 import com.nxastudios.acetato.core.domain.Artist;
+import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
 import io.reactivex.Single;
 import org.junit.Test;
@@ -11,13 +12,13 @@ public class GetArtistTest {
     private Artist artist;
     private Artists artistsRepository;
     private GetArtist action;
-    private String idArtist = "1";
+    private ArtistId artistId = new ArtistId("1/a");
     private Single<Artist> result;
 
     @Test
     public void getExistsArtistThenShouldReturnArtistSuccessfully() {
         //given
-        givenNewArtistFrom(idArtist);
+        givenNewArtistFrom(artistId);
         givenAnMockArtistRepository();
         givenGetArtistAction();
 
@@ -29,11 +30,11 @@ public class GetArtistTest {
     }
 
     private void thenGetAnArtistSuccessfully() {
-        result.test().assertValue(it -> it.getIdArtist().equals(idArtist));
+        result.test().assertValue(it -> it.getArtistId().equals(artistId.get()));
     }
 
     private void whenGetArtistExecute() {
-        result = action.execute(idArtist);
+        result = action.execute(artistId);
     }
 
     private void givenGetArtistAction() {
@@ -42,10 +43,10 @@ public class GetArtistTest {
 
     private void givenAnMockArtistRepository() {
         artistsRepository = mock(Artists.class);
-        when(artistsRepository.getOne(idArtist)).thenReturn(Single.just(artist));
+        when(artistsRepository.getOne(artistId)).thenReturn(Single.just(artist));
     }
 
-    private void givenNewArtistFrom(String idArtist) {
+    private void givenNewArtistFrom(ArtistId idArtist) {
         artist = new Artist.Builder().withId(idArtist).build();
     }
 }

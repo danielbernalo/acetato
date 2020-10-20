@@ -1,4 +1,5 @@
 import com.nxastudios.acetato.core.action.GetTrack;
+import com.nxastudios.acetato.core.domain.TrackId;
 import com.nxastudios.acetato.core.domain.Tracks;
 import com.nxastudios.acetato.core.domain.Track;
 import io.reactivex.Single;
@@ -11,13 +12,13 @@ public class GetTrackTest {
     private Track track;
     private Tracks tracksRepository;
     private GetTrack action;
-    private String idTrack = "1";
+    private TrackId trackId = new TrackId("1-123");
     private Single<Track> result;
 
     @Test
     public void getExistsTrackThenShouldReturnTrackSuccessfully() {
         //given
-        givenNewTrackFrom(idTrack);
+        givenNewTrackFrom(trackId);
         givenAnMockTrackRepository();
         givenGetTrackAction();
 
@@ -29,11 +30,11 @@ public class GetTrackTest {
     }
 
     private void thenGetAnTrackSuccefully() {
-        result.test().assertValue(it -> it.getIdTrack().equals(idTrack));
+        result.test().assertValue(it -> it.getTrackId().equals(trackId.get()));
     }
 
     private void whenGetTrackExecute() {
-        result = action.execute(idTrack);
+        result = action.execute(trackId);
     }
 
     private void givenGetTrackAction() {
@@ -43,11 +44,11 @@ public class GetTrackTest {
 
     private void givenAnMockTrackRepository() {
         tracksRepository = mock(Tracks.class);
-        when(tracksRepository.getOne(idTrack)).thenReturn(Single.just(track));
+        when(tracksRepository.getOne(trackId)).thenReturn(Single.just(track));
     }
 
-    private void givenNewTrackFrom(String idTrack) {
-        track = new Track.Builder().withIdTrack(idTrack).build();
+    private void givenNewTrackFrom(TrackId trackId) {
+        track = new Track.Builder().withIdTrack(trackId).build();
     }
 }
 

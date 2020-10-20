@@ -1,6 +1,7 @@
 package com.nxastudios.acetato.core.action;
 
 import com.nxastudios.acetato.core.domain.Track;
+import com.nxastudios.acetato.core.domain.TrackId;
 import com.nxastudios.acetato.core.domain.Tracks;
 import io.reactivex.Single;
 
@@ -13,7 +14,7 @@ public class ListTrack {
         this.tracksRepository = tracksRepository;
     }
 
-    public Single<Map<String, Track>> execute() {
+    public Single<Map<TrackId, Track>> execute() {
         return tracksRepository.list();
     }
 }

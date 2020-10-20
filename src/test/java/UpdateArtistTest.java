@@ -1,6 +1,7 @@
 import com.nxastudios.acetato.core.action.AddArtist;
 import com.nxastudios.acetato.core.action.UpdateArtist;
 import com.nxastudios.acetato.core.domain.Artist;
+import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
 import io.reactivex.Completable;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 public class UpdateArtistTest {
     private static final String NAME = "anArtist";
-    private static final String ID_ARTIST = "1A";
+    private static final ArtistId ID_ARTIST = new ArtistId("1A");
     private Artist artist;
     private UpdateArtist action;
     private Artists repository;
@@ -47,9 +48,9 @@ public class UpdateArtistTest {
         when(repository.put(artist)).thenReturn(Completable.complete());
     }
 
-    private void giveAnArtist(String idArtist, String name) {
+    private void giveAnArtist(ArtistId artistId, String name) {
         artist = new Artist.Builder()
-                .withId(idArtist)
+                .withId(artistId)
                 .withName(name)
                 .build();
     }

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface Tracks {
     Completable put(Track track);
-    Completable remove(String idTrack);
-    Single<Track> getOne(String idTrack);
-    Single<Map<String, Track>> list();
+    Completable remove(TrackId trackId);
+    Single<Track> getOne(TrackId trackId);
+    Single<Map<TrackId, Track>> list();
 }

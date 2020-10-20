@@ -1,6 +1,7 @@
 package com.nxastudios.acetato.core.action;
 
 import com.nxastudios.acetato.core.domain.Artist;
+import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
 import io.reactivex.Single;
 
@@ -13,7 +14,7 @@ public class ListArtist {
         this.artistsRepository = artistsRepository;
     }
 
-    public Single<Map<String, Artist>> execute() {
+    public Single<Map<ArtistId, Artist>> execute() {
         return artistsRepository.list();
     }
 }

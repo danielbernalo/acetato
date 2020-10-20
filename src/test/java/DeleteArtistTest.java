@@ -1,4 +1,5 @@
 import com.nxastudios.acetato.core.action.DeleteArtist;
+import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
 import io.reactivex.Completable;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import static org.mockito.Mockito.when;
 public class DeleteArtistTest {
     private Artists artistsRepository;
     private DeleteArtist action;
-    private String idArtist = "1";
+    private ArtistId artistId = new ArtistId("1-324");
     private Completable result;
 
     @Test
@@ -30,7 +31,7 @@ public class DeleteArtistTest {
     }
 
     private void whenGetArtistExecute() {
-        result = action.execute(idArtist);
+        result = action.execute(artistId);
     }
 
     private void givenGetArtistAction() {
@@ -39,7 +40,7 @@ public class DeleteArtistTest {
 
     private void givenAnMockArtistRepository() {
         artistsRepository = mock(Artists.class);
-        when(artistsRepository.remove(idArtist)).thenReturn(Completable.complete());
+        when(artistsRepository.remove(artistId)).thenReturn(Completable.complete());
 
     }
 }

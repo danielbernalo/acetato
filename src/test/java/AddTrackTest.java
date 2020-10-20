@@ -18,7 +18,7 @@ public class AddTrackTest {
     private static final Artist ARTIST = giveNewArtist();
     private static final List<Artist> ARTISTS = asList(ARTIST);
     private static final Album ALBUM = givenNewAlbum();
-    private static final String ID_TRACK = "111";
+    private static final TrackId ID_TRACK = new TrackId("11-11");
     private Track track;
     private AddTrack action;
     private Tracks repository;
@@ -67,7 +67,7 @@ public class AddTrackTest {
         when(repository.put(track)).thenReturn(Completable.complete());
     }
 
-    private void giveAnTrack(String idTrack, List<Artist> artists, Album album, Integer discNumber, String title, Integer trackNumber, Long duration) {
+    private void giveAnTrack(TrackId trackId, List<Artist> artists, Album album, Integer discNumber, String title, Integer trackNumber, Long duration) {
         track = new Track.Builder()
                 .withArtists(artists)
                 .withAlbum(album)
@@ -75,7 +75,7 @@ public class AddTrackTest {
                 .withTitle(title)
                 .withDuration(duration)
                 .withTrackNumber(trackNumber)
-                .withIdTrack(idTrack)
+                .withIdTrack(trackId)
                 .build();
     }
 }

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 public class AddArtistTest {
     private static final String NAME = "anArtist";
-    private static final String ID_ARTIST = "1A";
+    private static final ArtistId ID_ARTIST = new ArtistId("1A");
     private Artist artist;
     private AddArtist action;
     private Artists repository;
@@ -45,7 +45,7 @@ public class AddArtistTest {
         when(repository.put(artist)).thenReturn(Completable.complete());
     }
 
-    private void giveAnArtist(String idArtist, String name) {
+    private void giveAnArtist(ArtistId idArtist, String name) {
         artist = new Artist.Builder()
                 .withId(idArtist)
                 .withName(name)

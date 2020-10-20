@@ -8,9 +8,9 @@ import java.util.Map;
 public interface Artists {
     Completable put(Artist artist);
 
-    Completable remove(String idArtist);
+    Completable remove(ArtistId artistId);
 
-    Single<Artist> getOne(String idArtist);
+    Single<Artist> getOne(ArtistId artistId);
 
-    Single<Map<String, Artist>> list();
+    Single<Map<ArtistId, Artist>> list();
 }

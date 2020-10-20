@@ -1,5 +1,6 @@
 package com.nxastudios.acetato.core.action;
 
+import com.nxastudios.acetato.core.domain.TrackId;
 import com.nxastudios.acetato.core.domain.Tracks;
 import io.reactivex.Completable;
 
@@ -10,7 +11,7 @@ public class DeleteTrack {
         this.tracks = tracks;
     }
 
-    public Completable execute(String idTrack) {
+    public Completable execute(TrackId idTrack) {
         return tracks.remove(idTrack);
     }
 }

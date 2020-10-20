@@ -1,20 +1,20 @@
 package com.nxastudios.acetato.core.domain;
 
 public class Artist {
-    private final String idArtist;
+    private final ArtistId artistId;
     private final String name;
 
-    private Artist(String idArtist, String name) {
+    private Artist(ArtistId artistId, String name) {
         this.name = name;
-        this.idArtist = idArtist;
+        this.artistId = artistId;
     }
 
     public static class Builder {
-        private String idArtist;
+        private ArtistId artistId;
         private String name;
 
-        public Builder withId(String id) {
-            this.idArtist = id;
+        public Builder withId(ArtistId id) {
+            this.artistId = id;
             return this;
         }
 
@@ -24,11 +24,11 @@ public class Artist {
         }
 
         public Artist build() {
-            return new Artist(idArtist, name);
+            return new Artist(artistId, name);
         }
     }
 
-    public String getIdArtist() {
-        return idArtist;
+    public String getArtistId() {
+        return artistId.get();
     }
 }

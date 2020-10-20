@@ -1,5 +1,6 @@
 import com.nxastudios.acetato.core.action.ListTrack;
 import com.nxastudios.acetato.core.domain.Track;
+import com.nxastudios.acetato.core.domain.TrackId;
 import com.nxastudios.acetato.core.domain.Tracks;
 import io.reactivex.Single;
 import org.junit.Test;
@@ -12,14 +13,14 @@ import static org.mockito.Mockito.when;
 public class ListTrackTest {
     private Track track;
     private Tracks tracksRepository;
-    private String idTrack = "1";
+    private TrackId trackId = new TrackId("1-123-13");
     private ListTrack action;
-    private Single<Map<String, Track>> result;
+    private Single<Map<TrackId, Track>> result;
 
     @Test
     public void listTrackSuccessfully() {
         //given
-        givenNewTrackFrom(idTrack);
+        givenNewTrackFrom(trackId);
         givenTrackRepository();
         givenListTrackAction();
 
@@ -36,19 +37,19 @@ public class ListTrackTest {
 
     private void givenTrackRepository() {
         tracksRepository = mock(Tracks.class);
-        when(tracksRepository.list()).thenReturn(Single.just(Map.of(idTrack, track)));
+        when(tracksRepository.list()).thenReturn(Single.just(Map.of(trackId, track)));
     }
 
     private void thenListTrackShouldReturnOneWithIdTrack() {
-        result.test().assertValue(it -> it.containsKey(idTrack));
+        result.test().assertValue(it -> it.containsKey(trackId));
     }
 
     private void whenListTrackExecute() {
         result = action.execute();
     }
 
-    private void givenNewTrackFrom(String idTrack) {
-        track = new Track.Builder().withIdTrack(idTrack).build();
+    private void givenNewTrackFrom(TrackId trackId) {
+        track = new Track.Builder().withIdTrack(trackId).build();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.nxastudios.acetato.core.action;
 
 import com.nxastudios.acetato.core.domain.Track;
+import com.nxastudios.acetato.core.domain.TrackId;
 import com.nxastudios.acetato.core.domain.Tracks;
 import io.reactivex.Single;
 
@@ -11,7 +12,7 @@ public class GetTrack {
         this.tracksRepository = tracksRepository;
     }
 
-    public Single<Track> execute(String idTrack) {
+    public Single<Track> execute(TrackId idTrack) {
         return tracksRepository.getOne(idTrack);
     }
 }
