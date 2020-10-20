@@ -3,13 +3,15 @@ package com.nxastudios.acetato.core.domain;
 import java.util.List;
 
 public class Album {
+    private final String idAlbum;
     private final String title;
     private final Long releaseDate;
     private final List<Artist> artists;
     private final List<Track> tracks;
     private final AlbumType type;
 
-    private Album(String title, Long releaseDate, List<Artist> artists, List<Track> tracks, AlbumType type) {
+    private Album(String idAlbum, String title, Long releaseDate, List<Artist> artists, List<Track> tracks, AlbumType type) {
+        this.idAlbum = idAlbum;
         this.title = title;
         this.releaseDate = releaseDate;
         this.artists = artists;
@@ -18,11 +20,17 @@ public class Album {
     }
 
     public static class Builder {
+        private String idAlbum;
         private String title;
         private Long releaseDate;
         private List<Artist> artists;
         private List<Track> tracks;
         private AlbumType type;
+
+        public Builder withId(String idAlbum) {
+            this.idAlbum = idAlbum;
+            return this;
+        }
 
         public Builder withTitle(String title) {
             this.title = title;
@@ -50,8 +58,12 @@ public class Album {
         }
 
         public Album builder() {
-            return new Album(title, releaseDate, artists, tracks, type);
+            return new Album(idAlbum, title, releaseDate, artists, tracks, type);
         }
+    }
+
+    public String getIdAlbum() {
+        return idAlbum;
     }
 
 }

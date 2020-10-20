@@ -3,6 +3,7 @@ package com.nxastudios.acetato.core.domain;
 import java.util.List;
 
 public class Track {
+    private final String idTrack;
     private final String title;
     private final Album album;
     private final List<Artist> artists;
@@ -11,7 +12,8 @@ public class Track {
     private final Integer trackNumber;
 
 
-    private Track(String title, Album album, List<Artist> artists, Long duration, Integer discNumber, Integer trackNumber) {
+    private Track(String idTrack, String title, Album album, List<Artist> artists, Long duration, Integer discNumber, Integer trackNumber) {
+        this.idTrack = idTrack;
         this.title = title;
         this.album = album;
         this.artists = artists;
@@ -21,12 +23,18 @@ public class Track {
     }
 
     public static class Builder {
+        private String idTrack;
         private String title;
         private Album album;
         private List<Artist> artists;
         private Long duration;
         private Integer discNumber;
         private Integer trackNumber;
+
+        public Builder withIdTrack(String idTrack) {
+            this.idTrack = idTrack;
+            return this;
+        }
 
         public Builder withTitle(String title) {
             this.title = title;
@@ -59,7 +67,7 @@ public class Track {
         }
 
         public Track build() {
-            return new Track(title, album, artists, duration, discNumber, trackNumber);
+            return new Track(idTrack, title, album, artists, duration, discNumber, trackNumber);
         }
     }
 }
