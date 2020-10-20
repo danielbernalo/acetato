@@ -57,7 +57,7 @@ public class Album {
             return this;
         }
 
-        public Album builder() {
+        public Album build() {
             return new Album(idAlbum, title, releaseDate, artists, tracks, type);
         }
     }

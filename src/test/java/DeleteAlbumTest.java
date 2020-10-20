@@ -1,9 +1,6 @@
 import com.nxastudios.acetato.core.action.DeleteAlbum;
-import com.nxastudios.acetato.core.action.GetAlbum;
-import com.nxastudios.acetato.core.domain.Album;
 import com.nxastudios.acetato.core.domain.Albums;
 import io.reactivex.Completable;
-import io.reactivex.Single;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;

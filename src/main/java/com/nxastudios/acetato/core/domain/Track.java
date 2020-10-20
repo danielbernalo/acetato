@@ -70,4 +70,8 @@ public class Track {
             return new Track(idTrack, title, album, artists, duration, discNumber, trackNumber);
         }
     }
+
+    public String getIdTrack() {
+        return idTrack;
+    }
 }

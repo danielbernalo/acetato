@@ -1,4 +1,3 @@
-import com.nxastudios.acetato.core.action.AddAlbum;
 import com.nxastudios.acetato.core.action.UpdateAlbum;
 import com.nxastudios.acetato.core.domain.*;
 import io.reactivex.Completable;
@@ -75,7 +74,7 @@ public class UpdateAlbumTest {
                 .withReleaseDate(releaseDate)
                 .withTracks(tracks)
                 .withType(type)
-                .builder();
+                .build();
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ListAlbumsTest {
+public class ListAlbumTest {
     private Album album;
     private Albums albumsRepository;
     private String idAlbum = "1";
@@ -48,7 +48,7 @@ public class ListAlbumsTest {
     }
 
     private void givenNewAlbumFrom(String idAlbum) {
-        album = new Album.Builder().withId(idAlbum).builder();
+        album = new Album.Builder().withId(idAlbum).build();
     }
 
 }

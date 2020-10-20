@@ -46,7 +46,7 @@ public class GetAlbumTest {
     }
 
     private void givenNewAlbumFrom(String idAlbum) {
-        album = new Album.Builder().withId(idAlbum).builder();
+        album = new Album.Builder().withId(idAlbum).build();
     }
 }
 
