@@ -30,7 +30,7 @@ public class GetAlbumTest {
     }
 
     private void thenGetAnAlbumSuccessfully() {
-        result.test().assertValue(it -> it.getIdAlbum().equals(idAlbum.get()));
+        result.test().assertValue(it -> it.getAlbumId().equals(idAlbum.get()));
     }
 
     private void whenGetAlbumExecute() {

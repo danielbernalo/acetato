@@ -20,7 +20,7 @@ public class ListArtisTest {
     @Test
     public void listArtistSuccessfully() {
         //given
-        givenNewArtistFrom(artistId);
+        givenNewArtistFrom(artistId.get());
         givenArtistRepository();
         givenListArtistAction();
 
@@ -48,8 +48,8 @@ public class ListArtisTest {
         result = action.execute();
     }
 
-    private void givenNewArtistFrom(ArtistId idArtist) {
-        artist = new Artist.Builder().withId(idArtist).build();
+    private void givenNewArtistFrom(String artistId) {
+        artist = new Artist.Builder().withId(artistId).build();
     }
 
 }

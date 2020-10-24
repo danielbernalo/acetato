@@ -18,7 +18,7 @@ public class GetArtistTest {
     @Test
     public void getExistsArtistThenShouldReturnArtistSuccessfully() {
         //given
-        givenNewArtistFrom(artistId);
+        givenNewArtistFrom(artistId.get());
         givenAnMockArtistRepository();
         givenGetArtistAction();
 
@@ -46,8 +46,8 @@ public class GetArtistTest {
         when(artistsRepository.getOne(artistId)).thenReturn(Single.just(artist));
     }
 
-    private void givenNewArtistFrom(ArtistId idArtist) {
-        artist = new Artist.Builder().withId(idArtist).build();
+    private void givenNewArtistFrom(String artistId) {
+        artist = new Artist.Builder().withId(artistId).build();
     }
 }
 

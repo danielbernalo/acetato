@@ -70,7 +70,7 @@ public class UpdateTrackTest {
         track = new Track.Builder()
                 .withArtists(artists)
                 .withAlbum(album)
-                .WithDiscNumber(discNumber)
+                .withDiscNumber(discNumber)
                 .withTitle(title)
                 .withDuration(duration)
                 .withTrackNumber(trackNumber)

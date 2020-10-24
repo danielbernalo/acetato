@@ -1,18 +1,35 @@
 package com.nxastudios.acetato.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Track {
+
+    @JsonProperty("track_id")
     private final TrackId trackId;
+
+    @JsonProperty("title")
     private final String title;
+
+    @JsonProperty("album")
     private final Album album;
+
+    @JsonProperty("artists")
     private final List<Artist> artists;
+
+    @JsonProperty("duration")
     private final Long duration;
+
+    @JsonProperty("disc_number")
     private final Integer discNumber;
+
+    @JsonProperty("track_number")
     private final Integer trackNumber;
 
 
     private Track(TrackId trackId, String title, Album album, List<Artist> artists, Long duration, Integer discNumber, Integer trackNumber) {
+
         this.trackId = trackId;
         this.title = title;
         this.album = album;
@@ -31,8 +48,8 @@ public class Track {
         private Integer discNumber;
         private Integer trackNumber;
 
-        public Builder withIdTrack(TrackId trackId) {
-            this.trackId = trackId;
+        public Builder withIdTrack(String trackId) {
+            this.trackId = new TrackId(trackId);
             return this;
         }
 
@@ -56,7 +73,7 @@ public class Track {
             return this;
         }
 
-        public Builder WithDiscNumber(Integer discNumber) {
+        public Builder withDiscNumber(Integer discNumber) {
             this.discNumber = discNumber;
             return this;
         }

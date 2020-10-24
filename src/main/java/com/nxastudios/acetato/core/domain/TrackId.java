@@ -4,7 +4,7 @@ public class TrackId {
     private String value;
 
     public TrackId(String value) {
-        this.value = value;
+        this.value = value != null ? value : "";
     }
 
     public String get() {

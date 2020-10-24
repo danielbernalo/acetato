@@ -50,7 +50,7 @@ public class UpdateArtistTest {
 
     private void giveAnArtist(ArtistId artistId, String name) {
         artist = new Artist.Builder()
-                .withId(artistId)
+                .withId(artistId.get())
                 .withName(name)
                 .build();
     }
