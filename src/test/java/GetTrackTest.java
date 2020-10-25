@@ -30,7 +30,7 @@ public class GetTrackTest {
     }
 
     private void thenGetAnTrackSuccefully() {
-        result.test().assertValue(it -> it.getTrackId().equals(trackId.get()));
+        result.test().assertValue(it -> it.getTrackId().equals(trackId.toString()));
     }
 
     private void whenGetTrackExecute() {

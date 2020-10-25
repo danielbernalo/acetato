@@ -89,6 +89,6 @@ public class Track {
     }
 
     public String getTrackId() {
-        return trackId.get();
+        return trackId.toString();
     }
 }

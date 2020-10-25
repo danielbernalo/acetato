@@ -15,21 +15,22 @@ public class AddTrack {
     }
 
     public Completable execute(TrackDTO trackDTO) {
-        return buildTrackFrom(trackDTO)
-                .flatMapCompletable(track -> tracks.put(track));
+        return null;
+//        return buildTrackFrom(trackDTO)
+//                .flatMapCompletable(track -> tracks.put(track));
     }
 
-    private Single<Track> buildTrackFrom(TrackDTO data) {
-        return Single.just(
-                new Track.Builder()
-                        .withTitle(data.title())
-                        .withTrackNumber(data.trackNumber())
-                        .withDuration(data.duration())
-                        .withDiscNumber(data.discNumber())
-                        .withAlbum(data.album())
-                        .withArtists(data.artists())
-                        .withIdTrack(data.id())
-                        .build()
-        );
-    }
+//    private Single<Track> buildTrackFrom(TrackDTO data) {
+//        return Single.just(
+//                new Track.Builder()
+//                        .withTitle(data.title())
+//                        .withTrackNumber(data.trackNumber())
+//                        .withDuration(data.duration())
+//                        .withDiscNumber(data.discNumber())
+//                        .withAlbum(data.album())
+//                        .withArtists(data.artists())
+//                        .withIdTrack(data.id())
+//                        .build()
+//        );
+//    }
 }

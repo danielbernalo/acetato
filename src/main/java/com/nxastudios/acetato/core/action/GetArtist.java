@@ -12,7 +12,7 @@ public class GetArtist {
         this.artistsRepository = artistsRepository;
     }
 
-    public Single<Artist> execute(ArtistId artistId) {
-        return artistsRepository.getOne(artistId);
+    public Single<Artist> execute(String artistId) {
+        return artistsRepository.getOne( new ArtistId(artistId));
     }
 }

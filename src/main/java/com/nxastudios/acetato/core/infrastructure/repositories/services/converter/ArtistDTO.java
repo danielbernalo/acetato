@@ -1,28 +1,41 @@
 package com.nxastudios.acetato.core.infrastructure.repositories.services.converter;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.nxastudios.acetato.core.domain.Artist;
+import io.vertx.core.json.JsonObject;
+import org.bson.codecs.pojo.annotations.BsonId;
 
 public class ArtistDTO {
 
     @JsonProperty("name")
     private String name;
 
-    @JsonAlias({"id", "_id"})
-
+    @BsonId
+    @JsonProperty("_id")
     private String artistId;
 
-    public ArtistDTO() {
-    }
-
-    public ArtistDTO(String artistId, String name) {
+    @JsonCreator
+    public ArtistDTO(@BsonId @JsonProperty("_id") String artistId, @JsonProperty("name") String name) {
+        this.artistId = artistId;
+        this.name = name;
     }
 
     public String name() {
         return name;
     }
 
-    public String artistId() {
+    @BsonId
+    public String id() {
         return artistId;
+    }
+
+    public static ArtistDTO buildFrom(Artist artist) {
+        return new ArtistDTO(artist.getArtistId(), artist.getName());
+    }
+
+    public static ArtistDTO buildFrom(JsonObject json) {
+        return new ArtistDTO(json.getString("_id"), json.getString("name"));
     }
 }

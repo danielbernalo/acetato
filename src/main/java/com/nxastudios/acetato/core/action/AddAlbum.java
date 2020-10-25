@@ -15,22 +15,10 @@ public class AddAlbum {
     }
 
     public Completable execute(AlbumDTO data) {
-        return buildAlbumFrom(data)
-                .flatMapCompletable(album -> albumsRepository.put(album));
+//        return buildAlbumFrom(data)
+//                .flatMapCompletable(album -> albumsRepository.put(album));
+        return null;
 
-    }
-
-    private Single<Album> buildAlbumFrom(AlbumDTO data) {
-        return Single.just(
-                new Album.Builder()
-                        .withReleaseDate(data.releaseDate())
-                        .withType(data.type())
-                        .withArtists(data.artists())
-                        .withTitle(data.title())
-                        .withId(data.albumId())
-                        .withTracks(data.tracks())
-                        .build()
-        );
     }
 
 }

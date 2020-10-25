@@ -1,14 +1,13 @@
 package com.nxastudios.acetato.delivery.http.handler;
 
 import com.nxastudios.acetato.core.action.ListArtist;
-import com.nxastudios.acetato.core.domain.Artist;
-import com.nxastudios.acetato.core.domain.ArtistId;
-import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
-import io.vertx.core.json.Json;
+import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ListArtistHandler implements Handler {
     private static final String PATH = "/artists";
@@ -25,7 +24,9 @@ public class ListArtistHandler implements Handler {
 
     private void handle(RoutingContext context) {
         listArtist.execute()
-                .flatMap(items -> items.forEach((id, artist) -> artist))
+                .toFlowable()
+                .flatMapIterable(i -> i.stream().map(entries ->  JsonObject.mapFrom(entries)).collect(Collectors.toList()))
+                .toList()
                 .subscribe(items -> onSuccess(context, items), error -> onError(context, error));
 
     }
@@ -35,7 +36,7 @@ public class ListArtistHandler implements Handler {
         context.response().setStatusCode(500).end(error.getLocalizedMessage());
     }
 
-    private void onSuccess(RoutingContext context, Map<ArtistId, Artist> items) {
-        context.response().setStatusCode(200);
+    private void onSuccess(RoutingContext context, List<JsonObject> items) {
+        context.response().setStatusCode(200).end(items.toString());
     }
 }

@@ -8,17 +8,17 @@ import java.util.List;
 
 public class TrackDTO {
 
-    @JsonProperty("id")
+    @JsonProperty("_id")
     private String trackId;
 
     @JsonProperty("title")
     private String title;
 
     @JsonProperty("album")
-    private Album album;
+    private AlbumDTO album;
 
     @JsonProperty("artists")
-    private List<Artist> artists;
+    private List<ArtistDTO> artists;
 
     @JsonProperty("duration")
     private Long duration;
@@ -42,11 +42,11 @@ public class TrackDTO {
         return trackId;
     }
 
-    public Album album() {
+    public AlbumDTO album() {
         return album;
     }
 
-    public List<Artist> artists() {
+    public List<ArtistDTO> artists() {
         return artists;
     }
 

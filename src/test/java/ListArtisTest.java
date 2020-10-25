@@ -20,7 +20,7 @@ public class ListArtisTest {
     @Test
     public void listArtistSuccessfully() {
         //given
-        givenNewArtistFrom(artistId.get());
+        givenNewArtistFrom(artistId.toString());
         givenArtistRepository();
         givenListArtistAction();
 

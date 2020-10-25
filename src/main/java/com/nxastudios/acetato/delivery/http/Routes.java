@@ -1,9 +1,6 @@
 package com.nxastudios.acetato.delivery.http;
 
-import com.nxastudios.acetato.delivery.http.handler.AddAlbumHandler;
-import com.nxastudios.acetato.delivery.http.handler.AddArtistsHandler;
-import com.nxastudios.acetato.delivery.http.handler.HealthCheckerHandler;
-import com.nxastudios.acetato.delivery.http.handler.ListArtistHandler;
+import com.nxastudios.acetato.delivery.http.handler.*;
 import com.nxastudios.acetato.delivery.http.provider.Actions;
 import io.vertx.reactivex.ext.web.Router;
 
@@ -14,5 +11,7 @@ public class Routes {
         new AddArtistsHandler(Actions.addArtist).register(router);
 
         new ListArtistHandler(Actions.listArtist).register(router);
+
+        new GetArtistHandler(Actions.getArtist).register(router);
     }
 }

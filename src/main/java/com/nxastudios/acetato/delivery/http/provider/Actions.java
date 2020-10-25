@@ -1,9 +1,6 @@
 package com.nxastudios.acetato.delivery.http.provider;
 
-import com.nxastudios.acetato.core.action.AddAlbum;
-import com.nxastudios.acetato.core.action.AddArtist;
-import com.nxastudios.acetato.core.action.AddTrack;
-import com.nxastudios.acetato.core.action.ListArtist;
+import com.nxastudios.acetato.core.action.*;
 
 public class Actions {
 
@@ -14,6 +11,7 @@ public class Actions {
     //artist
     public static AddArtist addArtist;
     public static ListArtist listArtist;
+    public static GetArtist getArtist;
 
     //track
     public static AddTrack addTrack;
@@ -23,6 +21,7 @@ public class Actions {
 
         addArtist = new AddArtist(Repositories.artists);
         listArtist = new ListArtist(Repositories.artists);
+        getArtist = new GetArtist(Repositories.artists);
 
         addTrack = new AddTrack(Repositories.tracks);
     }

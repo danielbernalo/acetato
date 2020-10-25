@@ -14,17 +14,6 @@ public class AddArtist {
     }
 
     public Completable execute(ArtistDTO artistDTO) {
-
-        return buildArtistFrom(artistDTO)
-                .flatMapCompletable(artist -> artists.put(artist));
-    }
-
-    private Single<Artist> buildArtistFrom(ArtistDTO data) {
-        return Single.just(
-                new Artist.Builder()
-                        .withName(data.name())
-                        .withId(data.artistId())
-                        .build()
-        );
+        return artists.put(new Artist(artistDTO));
     }
 }

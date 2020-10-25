@@ -3,18 +3,16 @@ package com.nxastudios.acetato.core.infrastructure.repositories;
 import com.nxastudios.acetato.core.domain.Artist;
 import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
+import com.nxastudios.acetato.core.domain.errors.ArtistNotFound;
 import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
-import com.nxastudios.acetato.delivery.http.provider.Repositories;
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.mongo.MongoClient;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MongoArtistRepository implements Artists {
 
@@ -27,38 +25,46 @@ public class MongoArtistRepository implements Artists {
 
     @Override
     public Completable put(Artist artist) {
-        return Completable.fromMaybe(client.rxInsert(COLLECTION_NAME, buildModelArtistFrom(artist)));
+        return Completable.fromMaybe(client.rxSave(COLLECTION_NAME, buildModelArtistFrom(artist)));
     }
 
     @Override
     public Completable remove(ArtistId artistId) {
-        return null;
+        JsonObject query = new JsonObject().put("_id", artistId.toString());
+        return Completable.fromMaybe(client.rxRemoveDocument(COLLECTION_NAME, query));
     }
 
     @Override
     public Single<Artist> getOne(ArtistId artistId) {
-        return null;
+        JsonObject query = new JsonObject().put("_id", artistId.toString());
+        return client.rxFindOne(COLLECTION_NAME, query, new JsonObject())
+                .onErrorResumeNext(it -> {
+                    if (it instanceof  NoSuchElementException) {
+                        return Maybe.error(new ArtistNotFound());
+                    }
+                    return Maybe.error(it);
+                })
+                .filter(it -> it != null)
+                .flatMapSingle(item -> Single.just(new Artist(ArtistDTO.buildFrom(item))));
     }
 
+
     @Override
-    public Single<Map<ArtistId, Artist>> list() {
-        Map<ArtistId, Artist> result = new HashMap();
+    public Single<List<Artist>> list() {
         JsonObject query = new JsonObject();
         return client.rxFind(COLLECTION_NAME, query)
-                .map(items -> {
-                    return items.stream().map(item -> {
-                        ArtistId artistId = new ArtistId(item.getString("_id"));
-                        Artist artist = new Artist.Builder()
-                                .withId(artistId.get())
-                                .withName(item.getString("name"))
-                                .build();
-                        return result.put(artistId, artist);
-                    });
-                })
-                .flatMap(item -> Single.just(result));
+                .toFlowable()
+                .flatMapIterable(list -> list.stream().map(json -> new Artist(ArtistDTO.buildFrom(json))).collect(Collectors.toList()))
+                .toList();
+
     }
 
     private JsonObject buildModelArtistFrom(Artist artist) {
-        return JsonObject.mapFrom(artist);
+        JsonObject jsonObject = new JsonObject();
+        if (artist.getArtistId() != "")
+            jsonObject.put("_id", artist.getArtistId());
+        jsonObject.put("name", artist.getName());
+
+        return jsonObject;
     }
 }

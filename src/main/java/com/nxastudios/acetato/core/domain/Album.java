@@ -103,7 +103,7 @@ public class Album {
     }
 
     public String getAlbumId() {
-        return albumId.get();
+        return albumId.toString();
     }
 
 }

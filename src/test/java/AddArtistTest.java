@@ -45,7 +45,7 @@ public class AddArtistTest {
     private void givenAnRepository() {
         repository = mock(Artists.class);
 
-        Artist artist = new Artist.Builder().withName(artistDTO.name()).withId(artistDTO.artistId()).build();
+        Artist artist = new Artist.Builder().withName(artistDTO.name()).withId(artistDTO.id()).build();
 
         when(repository.put(artist)).thenReturn(Completable.complete());
     }

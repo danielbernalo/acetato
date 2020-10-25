@@ -1,5 +1,7 @@
 package com.nxastudios.acetato.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public class AlbumId {
     private String value;
 
@@ -7,7 +9,9 @@ public class AlbumId {
         this.value = value != null ? value : "";
     }
 
-    public String get() {
+    @Override
+    @JsonValue
+    public String toString() {
         return value;
     }
 }

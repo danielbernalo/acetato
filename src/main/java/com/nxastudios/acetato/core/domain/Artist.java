@@ -1,6 +1,8 @@
 package com.nxastudios.acetato.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
+
 
 public class Artist {
 
@@ -29,8 +31,7 @@ public class Artist {
         }
 
         public Builder withName(String name) {
-            if (name != null)
-                this.name = name;
+            this.name = name;
             return this;
         }
 
@@ -40,6 +41,11 @@ public class Artist {
     }
 
     public String getArtistId() {
-        return artistId.get();
+        return artistId.toString();
+    }
+
+    public Artist(ArtistDTO artistDTO) {
+        this.name = artistDTO.name();
+        this.artistId = artistDTO.id() != "" ? new ArtistId(artistDTO.id()) : null;
     }
 }

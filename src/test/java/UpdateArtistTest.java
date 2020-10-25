@@ -1,4 +1,3 @@
-import com.nxastudios.acetato.core.action.AddArtist;
 import com.nxastudios.acetato.core.action.UpdateArtist;
 import com.nxastudios.acetato.core.domain.Artist;
 import com.nxastudios.acetato.core.domain.ArtistId;
@@ -50,7 +49,7 @@ public class UpdateArtistTest {
 
     private void giveAnArtist(ArtistId artistId, String name) {
         artist = new Artist.Builder()
-                .withId(artistId.get())
+                .withId(artistId.toString())
                 .withName(name)
                 .build();
     }

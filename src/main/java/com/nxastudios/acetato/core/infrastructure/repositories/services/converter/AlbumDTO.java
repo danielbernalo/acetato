@@ -8,7 +8,7 @@ import com.nxastudios.acetato.core.domain.Track;
 import java.util.List;
 
 public class AlbumDTO {
-    @JsonProperty("id")
+    @JsonProperty("_id")
     private String albumId;
 
     @JsonProperty("title")
@@ -18,10 +18,10 @@ public class AlbumDTO {
     private Long releaseDate;
 
     @JsonProperty("artists")
-    private List<Artist> artists;
+    private List<ArtistDTO> artists;
 
     @JsonProperty("tracks")
-    private List<Track> tracks;
+    private List<TrackDTO> tracks;
 
     @JsonProperty("type")
     private AlbumType type;
@@ -34,11 +34,11 @@ public class AlbumDTO {
         return releaseDate;
     }
 
-    public List<Artist> artists() {
+    public List<ArtistDTO> artists() {
         return artists;
     }
 
-    public List<Track> tracks() {
+    public List<TrackDTO> tracks() {
         return tracks;
     }
 
@@ -49,4 +49,5 @@ public class AlbumDTO {
     public String albumId() {
         return albumId;
     }
+
 }

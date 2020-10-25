@@ -18,7 +18,7 @@ public class GetArtistTest {
     @Test
     public void getExistsArtistThenShouldReturnArtistSuccessfully() {
         //given
-        givenNewArtistFrom(artistId.get());
+        givenNewArtistFrom(artistId.toString());
         givenAnMockArtistRepository();
         givenGetArtistAction();
 
@@ -30,7 +30,7 @@ public class GetArtistTest {
     }
 
     private void thenGetAnArtistSuccessfully() {
-        result.test().assertValue(it -> it.getArtistId().equals(artistId.get()));
+        result.test().assertValue(it -> it.getArtistId().equals(artistId.toString()));
     }
 
     private void whenGetArtistExecute() {
