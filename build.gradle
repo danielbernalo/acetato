@@ -6,20 +6,28 @@ plugins {
 ext {
     vertxVersion = '3.8.3'
     rxVersion = '2.2.20'
+    log4JVersion = '2.11.2'
     javaMainClass = 'com.nxastudios.acetato.delivery.http.Application'
 }
+
 
 application {
     mainClassName = javaMainClass
 }
 
 group 'com.nxastudios.acetato'
-
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 repositories {
+    jcenter()
     mavenCentral()
 }
+
+compileJava {
+    targetCompatibility = 1.8
+    sourceCompatibility = 1.8
+}
+
 
 dependencies {
     compile "io.reactivex.rxjava2:rxjava:$rxVersion"
@@ -32,6 +40,15 @@ dependencies {
     compile "io.vertx:vertx-rx-java2:$vertxVersion"
 }
 
+//logger
+dependencies {
+    compile "org.apache.logging.log4j:log4j-api:$log4JVersion"
+    compile "org.apache.logging.log4j:log4j-core:$log4JVersion"
+    compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4JVersion"
+
+}
+
+//test
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testImplementation("org.assertj:assertj-core:3.17.2")
