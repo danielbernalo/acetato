@@ -25,6 +25,7 @@ public class ListArtistHandler implements Handler {
 
     private void handle(RoutingContext context) {
         listArtist.execute()
+                .flatMap(items -> items.forEach((id, artist) -> artist))
                 .subscribe(items -> onSuccess(context, items), error -> onError(context, error));
 
     }
@@ -34,7 +35,7 @@ public class ListArtistHandler implements Handler {
         context.response().setStatusCode(500).end(error.getLocalizedMessage());
     }
 
-    private void onSuccess(RoutingContext context, Map<String, ArtistDTO> items) {
-        context.response().setStatusCode(200).end(Json.encode(items));
+    private void onSuccess(RoutingContext context, Map<ArtistId, Artist> items) {
+        context.response().setStatusCode(200);
     }
 }

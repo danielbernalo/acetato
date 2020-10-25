@@ -17,19 +17,7 @@ public class ListArtist {
         this.artistsRepository = artistsRepository;
     }
 
-    public Single<Map<String, ArtistDTO>> execute() {
-        return artistsRepository.list()
-                .map(artistIdArtistMap -> buildArtistDTOFrom(artistIdArtistMap));
+    public Single<Map<ArtistId, Artist>> execute() {
+        return artistsRepository.list();
     }
-
-    private Map<String, ArtistDTO> buildArtistDTOFrom(Map<ArtistId, Artist> artistIdArtistMap) {
-        String id = artistIdArtistMap.entrySet().stream().findFirst().get().getKey().get();
-        Artist artist = artistIdArtistMap.entrySet().stream().findFirst().get().getValue();
-        ArtistDTO artistDTO = new ArtistDTO(
-                artist.getArtistId(),
-                artist.getName()
-        );
-        return Map.of(id, artistDTO);
-    }
-
 }

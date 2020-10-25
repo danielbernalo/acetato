@@ -42,28 +42,23 @@ public class MongoArtistRepository implements Artists {
 
     @Override
     public Single<Map<ArtistId, Artist>> list() {
-
+        Map<ArtistId, Artist> result = new HashMap();
         JsonObject query = new JsonObject();
-//        return client.rxFind(COLLECTION_NAME, query);
-        return null;
+        return client.rxFind(COLLECTION_NAME, query)
+                .map(items -> {
+                    return items.stream().map(item -> {
+                        ArtistId artistId = new ArtistId(item.getString("_id"));
+                        Artist artist = new Artist.Builder()
+                                .withId(artistId.get())
+                                .withName(item.getString("name"))
+                                .build();
+                        return result.put(artistId, artist);
+                    });
+                })
+                .flatMap(item -> Single.just(result));
     }
 
     private JsonObject buildModelArtistFrom(Artist artist) {
         return JsonObject.mapFrom(artist);
-    }
-}
-
-
-class Main {
-    public static void main(String[] args) {
-        MongoClient client = Repositories.createMongoClient();
-        Map<String, Artist> getArtists = new HashMap();
-
-        client.rxFind("artists", new JsonObject())
-                .map(items -> Arrays.stream(items.toArray())
-                        .map(item -> getArtists.put(item.getString("_id"), new Artist.Builder().withName(item.getString("name")).build())))
-                .subscribe(items -> {
-                    System.out.println(getArtists);
-                });
     }
 }
