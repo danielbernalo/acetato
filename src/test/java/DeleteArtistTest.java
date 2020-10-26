@@ -10,7 +10,8 @@ import static org.mockito.Mockito.when;
 public class DeleteArtistTest {
     private Artists artistsRepository;
     private DeleteArtist action;
-    private ArtistId artistId = new ArtistId("1-324");
+    private String id = "12-34";
+    private ArtistId artistId = new ArtistId(id);
     private Completable result;
 
     @Test
@@ -27,11 +28,13 @@ public class DeleteArtistTest {
     }
 
     private void thenGetAnArtistSuccessfully() {
-        result.test().assertComplete();
+        result
+                .test()
+                .assertComplete();
     }
 
     private void whenGetArtistExecute() {
-        result = action.execute(artistId);
+        result = action.execute(id);
     }
 
     private void givenGetArtistAction() {
