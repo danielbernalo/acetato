@@ -39,9 +39,13 @@ public class UpdateArtistsHandler implements Handler {
 
     private void onError(RoutingContext context, Throwable error) {
         String errorEncoded = new JsonObject().put("error", error.getLocalizedMessage()).encodePrettily();
+        Integer statusCode = 500;
+        if (error instanceof MissingParameterException) {
+            statusCode = 400;
+        }
         context.response()
                 .putHeader("Content-Type", "application/json")
-                .setStatusCode(500)
+                .setStatusCode(statusCode)
                 .end(errorEncoded);
     }
 

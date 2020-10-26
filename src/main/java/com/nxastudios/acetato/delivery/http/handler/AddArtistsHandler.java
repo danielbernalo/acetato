@@ -7,7 +7,7 @@ import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
 public class AddArtistsHandler implements Handler {
-    private static final String PATH = "/artists";
+    private static final String PATH = "/artist";
     private AddArtist addArtists;
 
     public AddArtistsHandler(AddArtist addArtists) {

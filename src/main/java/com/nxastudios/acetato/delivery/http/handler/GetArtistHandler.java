@@ -28,17 +28,15 @@ public class GetArtistHandler implements Handler {
 
     private void onError(RoutingContext context, Throwable error) {
         String errorEncoded = new JsonObject().put("error", error.getLocalizedMessage()).encodePrettily();
+        int statusCode = 500;
         if (error instanceof ArtistNotFound) {
-            context.response()
-                    .putHeader("Content-Type", "application/json")
-                    .setStatusCode(404)
-                    .end(errorEncoded);
-        } else {
-            context.response()
-                    .putHeader("Content-Type", "application/json")
-                    .setStatusCode(500)
-                    .end(errorEncoded);
+            statusCode = 404;
         }
+        context.response()
+                .putHeader("Content-Type", "application/json")
+                .setStatusCode(statusCode)
+                .end(errorEncoded);
+
     }
 
 
