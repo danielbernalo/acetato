@@ -11,7 +11,7 @@ public class DeleteArtist {
         this.artists = artists;
     }
 
-    public Completable execute(ArtistId artistId) {
-        return artists.remove(artistId);
+    public Completable execute(String artistId) {
+        return artists.remove(new ArtistId(artistId));
     }
 }

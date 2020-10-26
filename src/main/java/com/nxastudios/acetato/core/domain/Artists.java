@@ -1,8 +1,10 @@
 package com.nxastudios.acetato.core.domain;
 
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
+import java.util.List;
 import java.util.Map;
 
 public interface Artists {
@@ -12,5 +14,5 @@ public interface Artists {
 
     Single<Artist> getOne(ArtistId artistId);
 
-    Single<Map<ArtistId, Artist>> list();
+    Single<List<Artist>> list();
 }

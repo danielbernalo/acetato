@@ -1,5 +1,6 @@
 import com.nxastudios.acetato.core.action.AddArtist;
 import com.nxastudios.acetato.core.domain.*;
+import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
 import io.reactivex.Completable;
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ public class AddArtistTest {
     private AddArtist action;
     private Artists repository;
     private Completable result;
+    private ArtistDTO artistDTO;
 
     @Test
     public void artistIsAddedThenShouldBeSuccessfully() {
@@ -33,7 +35,7 @@ public class AddArtistTest {
     }
 
     private void whenNewArtistAdded() {
-        result = action.execute(artist);
+        result = action.execute(artistDTO);
     }
 
     private void givenAnAction() {
@@ -47,9 +49,11 @@ public class AddArtistTest {
 
     private void giveAnArtist(ArtistId idArtist, String name) {
         artist = new Artist.Builder()
-                .withId(idArtist)
+                .withId(idArtist.toString())
                 .withName(name)
                 .build();
+
+        artistDTO =  ArtistDTO.buildFrom(artist);
     }
 
 }

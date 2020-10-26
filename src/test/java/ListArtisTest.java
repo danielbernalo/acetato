@@ -5,6 +5,7 @@ import com.nxastudios.acetato.core.domain.Artists;
 import io.reactivex.Single;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.mock;
@@ -15,7 +16,7 @@ public class ListArtisTest {
     private Artists artistsRepository;
     private ArtistId artistId = new ArtistId("1-sdf");
     private ListArtist action;
-    private Single<Map<ArtistId, Artist>> result;
+    private Single<List<Artist>> result;
 
     @Test
     public void listArtistSuccessfully() {
@@ -37,19 +38,19 @@ public class ListArtisTest {
 
     private void givenArtistRepository() {
         artistsRepository = mock(Artists.class);
-        when(artistsRepository.list()).thenReturn(Single.just(Map.of(artistId, artist)));
+        when(artistsRepository.list()).thenReturn(Single.just(List.of(artist)));
     }
 
     private void thenListArtistShouldReturnOneWithIdArtist() {
-        result.test().assertValue(it -> it.containsKey(artistId));
+        result.test().assertValue(it -> it.get(0).getArtistId() == artistId.toString());
     }
 
     private void whenListArtistExecute() {
         result = action.execute();
     }
 
-    private void givenNewArtistFrom(ArtistId idArtist) {
-        artist = new Artist.Builder().withId(idArtist).build();
+    private void givenNewArtistFrom(ArtistId artistId) {
+        artist = new Artist.Builder().withId(artistId.toString()).build();
     }
 
 }

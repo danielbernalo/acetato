@@ -2,7 +2,9 @@ import com.nxastudios.acetato.core.action.GetArtist;
 import com.nxastudios.acetato.core.domain.Artist;
 import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
+import io.vertx.core.json.JsonObject;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
@@ -30,11 +32,11 @@ public class GetArtistTest {
     }
 
     private void thenGetAnArtistSuccessfully() {
-        result.test().assertValue(it -> it.getArtistId().equals(artistId.get()));
+        result.test().assertValue(it -> it.getArtistId().equals(artistId.toString()));
     }
 
     private void whenGetArtistExecute() {
-        result = action.execute(artistId);
+        result = action.execute(artistId.toString());
     }
 
     private void givenGetArtistAction() {
@@ -46,8 +48,8 @@ public class GetArtistTest {
         when(artistsRepository.getOne(artistId)).thenReturn(Single.just(artist));
     }
 
-    private void givenNewArtistFrom(ArtistId idArtist) {
-        artist = new Artist.Builder().withId(idArtist).build();
+    private void givenNewArtistFrom(ArtistId artistId) {
+        artist = new Artist.Builder().withId(artistId.toString()).build();
     }
 }
 
