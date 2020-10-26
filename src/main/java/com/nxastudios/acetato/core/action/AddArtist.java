@@ -2,6 +2,7 @@ package com.nxastudios.acetato.core.action;
 
 import com.nxastudios.acetato.core.domain.Artist;
 import com.nxastudios.acetato.core.domain.Artists;
+import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
 import io.reactivex.Completable;
 
 public class AddArtist {
@@ -11,7 +12,7 @@ public class AddArtist {
         this.artists = artists;
     }
 
-    public Completable execute(Artist artist) {
-        return artists.put(artist);
+    public Completable execute(ArtistDTO artistDTO) {
+        return artists.put(new Artist(artistDTO));
     }
 }
