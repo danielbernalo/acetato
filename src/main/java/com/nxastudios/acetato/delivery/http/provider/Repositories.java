@@ -15,7 +15,7 @@ public class Repositories {
 
 
     private static JsonObject mongoOptions = new JsonObject()
-            .put("connection_string", "mongodb+srv://acetato_user:kxrxdZctDlLz23CJ@cluster-serviberza.zburx.mongodb.net/acetato?retryWrites=true&w=majority");
+            .put("connection_string", Environment.MONGO_URI);
 
     public static MongoClient createMongoClient() {
         MongoClient shared = MongoClient.createShared(vertx, mongoOptions);

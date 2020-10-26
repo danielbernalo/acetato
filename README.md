@@ -18,6 +18,19 @@ Implementar un micro-servicio API REST para la empresa nxstudios, utilizando JAV
 
 ### Como ejecutar la app
 
+#### Utilizando Docker (recomendado)
+Desde un terminal busca la carpeta raiz del proyecto y ejecuta lo siguiente: 
+```
+docker build --rm -t acetato .
+```
+
+Para ejecutarlo:
+```
+docker run -p 8080:8080 -e REPOSITORY=MONGO -e MONGO_URI=mongodb+srv://acetato_user:kxrxdZctDlLz23CJ@cluster-serviberza.zburx.mongodb.net/acetato?retryWrites=true&w=majority -t acetato acetato
+```
+
+Nota: Las credenciales expuestas en la variable de entorno `MONGO_URI` son solo para fines de esta prueba, luego seran removidas, por seguridad.
+ 
 #### Utilizando gradle
 
 Desde un terminal busca la carpeta raiz del proyecto y ejecuta lo siguiente:
@@ -39,6 +52,24 @@ Si queremos buildear el proyecto podremos ejecutar lo siguiente:
 Para ejecutar el proyecto recien buildeado, ejecutamos lo siguiente:
 
 ```
+export REPOSITORY=MONGO
+export MONGO_URI=mongodb+srv://acetato_user:kxrxdZctDlLz23CJ@cluster-serviberza.zburx.mongodb.net/acetato?retryWrites=true&w=majority
+
 java -jar build/libs/acetato-1.0-SNAPSHOT.jar  
 ```
+
+Nota: Las credenciales expuestas en la variable de entorno `MONGO_URI` son solo para fines de esta prueba, luego seran removidas, por seguridad.
+
+
+### API Endpoints
+
+#### Artist
+
+|Metodo|Endpoint|Descripcion|
+|-------|--------|-----|
+|GET|/artists|Lista todos los artistas|
+|GET|/artist/:artistId|Obtiene uno por id|
+|POST|/artists|Agrega un artistas|
+|DELETE|/artist/:artistId|Elimina uno por id|
+|PUT|/artist|Actualiza un artista|
 
