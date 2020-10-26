@@ -28,12 +28,16 @@ public class AddArtistsHandler implements Handler {
     }
 
     private void onError(RoutingContext context, Throwable error) {
-        error.printStackTrace();
-        context.response().setStatusCode(500).end(error.getLocalizedMessage());
+        context.response()
+                .putHeader("Content-Type", "application/json")
+                .setStatusCode(500)
+                .end(error.getLocalizedMessage());
     }
 
     private void onSuccess(RoutingContext context) {
-        context.response().setStatusCode(201).end();
+        context.response()
+                .setStatusCode(201)
+                .end();
     }
 
 }

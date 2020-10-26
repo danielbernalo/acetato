@@ -13,5 +13,6 @@ public class Routes {
         new ListArtistHandler(Actions.listArtist).register(router);
         new GetArtistHandler(Actions.getArtist).register(router);
         new DeleteArtistHandler(Actions.deleteArtist).register(router);
+        new UpdateArtistsHandler(Actions.updateArtist).register(router);
     }
 }

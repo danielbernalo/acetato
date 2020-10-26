@@ -29,14 +29,23 @@ public class GetArtistHandler implements Handler {
     private void onError(RoutingContext context, Throwable error) {
         String errorEncoded = new JsonObject().put("error", error.getLocalizedMessage()).encodePrettily();
         if (error instanceof ArtistNotFound) {
-            context.response().setStatusCode(404).end(errorEncoded);
+            context.response()
+                    .putHeader("Content-Type", "application/json")
+                    .setStatusCode(404)
+                    .end(errorEncoded);
         } else {
-            context.response().setStatusCode(500).end(errorEncoded);
+            context.response()
+                    .putHeader("Content-Type", "application/json")
+                    .setStatusCode(500)
+                    .end(errorEncoded);
         }
     }
 
 
     private void onSuccess(RoutingContext context, JsonObject data) {
-        context.response().setStatusCode(200).end(data.encodePrettily());
+        context.response()
+                .putHeader("Content-Type", "application/json")
+                .setStatusCode(200)
+                .end(data.encodePrettily());
     }
 }

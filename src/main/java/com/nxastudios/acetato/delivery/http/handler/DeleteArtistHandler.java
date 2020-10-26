@@ -29,7 +29,10 @@ public class DeleteArtistHandler implements Handler {
 
     private void onError(RoutingContext context, Throwable error) {
         String errorEncoded = new JsonObject().put("error", error.getLocalizedMessage()).encodePrettily();
-        context.response().setStatusCode(500).end(errorEncoded);
+        context.response()
+                .putHeader("Content-Type", "application/json")
+                .setStatusCode(500)
+                .end(errorEncoded);
     }
 
     private void onSuccess(RoutingContext context) {

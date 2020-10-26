@@ -9,6 +9,7 @@ public class Actions {
     public static ListArtist listArtist;
     public static GetArtist getArtist;
     public static DeleteArtist deleteArtist;
+    public static UpdateArtist updateArtist;
 
     static {
 
@@ -16,6 +17,7 @@ public class Actions {
         addArtist = new AddArtist(Repositories.artists);
         listArtist = new ListArtist(Repositories.artists);
         getArtist = new GetArtist(Repositories.artists);
-        deleteArtist= new DeleteArtist(Repositories.artists);
+        deleteArtist = new DeleteArtist(Repositories.artists);
+        updateArtist = new UpdateArtist(Repositories.artists);
     }
 }

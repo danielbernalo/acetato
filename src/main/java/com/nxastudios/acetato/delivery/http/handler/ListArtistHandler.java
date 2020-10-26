@@ -31,11 +31,17 @@ public class ListArtistHandler implements Handler {
     }
 
     private void onError(RoutingContext context, Throwable error) {
-        error.printStackTrace();
-        context.response().setStatusCode(500).end(error.getLocalizedMessage());
+        String errorEncoded = new JsonObject().put("error", error.getLocalizedMessage()).encodePrettily();
+        context.response()
+                .putHeader("Content-Type", "application/json")
+                .setStatusCode(500)
+                .end(errorEncoded);
     }
 
     private void onSuccess(RoutingContext context, List<JsonObject> items) {
-        context.response().setStatusCode(200).end(items.toString());
+        context.response()
+                .putHeader("Content-Type", "application/json")
+                .setStatusCode(200)
+                .end(items.toString());
     }
 }
