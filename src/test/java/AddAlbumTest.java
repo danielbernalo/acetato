@@ -52,7 +52,7 @@ public class AddAlbumTest {
         }
 
         private void whenNewAlbumAdded() {
-            result = action.execute(album);
+            result = action.execute(album, artistDTO);
         }
 
         private void givenAnAction() {

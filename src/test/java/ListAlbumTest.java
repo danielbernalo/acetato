@@ -49,7 +49,7 @@ public class ListAlbumTest {
     }
 
     private void givenNewAlbumFrom(AlbumId idAlbum) {
-        album = new Album.Builder().withId(idAlbum).build();
+        album = new Album.Builder().withId(idAlbum.toString()).build();
     }
 
 }

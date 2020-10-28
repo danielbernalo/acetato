@@ -1,6 +1,6 @@
 import com.nxastudios.acetato.core.action.AddArtist;
 import com.nxastudios.acetato.core.domain.*;
-import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
+import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
 import io.reactivex.Completable;
 import org.junit.Test;
 

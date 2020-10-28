@@ -68,7 +68,7 @@ public class UpdateAlbumTest {
 
     private void giveAnAlbumFrom(AlbumId idAlbum, String title, Long releaseDate, List<Artist> artists, List<Track> tracks, AlbumType type) {
         album = new Album.Builder()
-                .withId(idAlbum)
+                .withId(idAlbum.toString())
                 .withTitle(title)
                 .withArtists(artists)
                 .withReleaseDate(releaseDate)
