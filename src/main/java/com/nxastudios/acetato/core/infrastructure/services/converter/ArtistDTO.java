@@ -1,4 +1,4 @@
-package com.nxastudios.acetato.core.infrastructure.repositories.services.converter;
+package com.nxastudios.acetato.core.infrastructure.services.converter;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
