@@ -1,18 +1,37 @@
 package com.nxastudios.acetato.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
+import com.nxastudios.acetato.core.infrastructure.services.converter.TrackDTO;
+import org.bson.codecs.pojo.annotations.BsonId;
+
 import java.util.List;
 
 public class Track {
-    private final TrackId trackId;
-    private final String title;
-    private final Album album;
-    private final List<Artist> artists;
-    private final Long duration;
-    private final Integer discNumber;
-    private final Integer trackNumber;
+    @BsonId
+    @JsonProperty("_id")
+    private TrackId trackId;
+
+    @JsonProperty("title")
+    private String title;
+
+    @JsonProperty("album")
+    private Album album;
+
+    @JsonProperty("artists")
+    private List<Artist> artists;
+
+    @JsonProperty("duration")
+    private Long duration;
+
+    @JsonProperty("disc_number")
+    private Integer discNumber;
+
+    @JsonProperty("track_number")
+    private Integer trackNumber;
 
 
-    private Track(TrackId trackId, String title, Album album, List<Artist> artists, Long duration, Integer discNumber, Integer trackNumber) {
+    public Track(TrackId trackId, String title, Album album, List<Artist> artists, Long duration, Integer discNumber, Integer trackNumber) {
         this.trackId = trackId;
         this.title = title;
         this.album = album;
@@ -21,6 +40,46 @@ public class Track {
         this.duration = duration;
         this.trackNumber = trackNumber;
     }
+
+    public Track(TrackDTO trackDTO) {
+        this.trackId = new TrackId(trackDTO.getTrackId());
+        this.title = trackDTO.getTitle();
+        this.album = new Album(trackDTO.getAlbum());
+        this.artists = ArtistDTO.mapArtistsFrom(trackDTO.getArtists());
+        this.discNumber = trackDTO.getDiscNumber();
+        this.duration = trackDTO.getDuration();
+        this.trackNumber = trackDTO.getTrackNumber();
+    }
+
+
+    public String getTrackId() {
+        return trackId.toString();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public Integer getDiscNumber() {
+        return discNumber;
+    }
+
+    public Integer getTrackNumber() {
+        return trackNumber;
+    }
+
 
     public static class Builder {
         private TrackId trackId;
@@ -71,7 +130,4 @@ public class Track {
         }
     }
 
-    public String getTrackId() {
-        return trackId.get();
-    }
 }

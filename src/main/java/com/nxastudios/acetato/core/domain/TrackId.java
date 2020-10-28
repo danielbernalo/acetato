@@ -7,7 +7,8 @@ public class TrackId {
         this.value = value;
     }
 
-    public String get() {
+    @Override
+    public String toString() {
         return value;
     }
 }
