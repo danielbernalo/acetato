@@ -1,7 +1,9 @@
 package com.nxastudios.acetato.delivery.http.provider;
 
 import com.nxastudios.acetato.config.Environment;
+import com.nxastudios.acetato.core.domain.Albums;
 import com.nxastudios.acetato.core.domain.Artists;
+import com.nxastudios.acetato.core.infrastructure.repositories.MongoAlbumRepository;
 import com.nxastudios.acetato.core.infrastructure.repositories.MongoArtistRepository;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.mongo.MongoClient;
@@ -10,6 +12,7 @@ import static com.nxastudios.acetato.delivery.http.provider.VertxProvider.vertx;
 
 public class Repositories {
     public static Artists artists;
+    public static Albums albums;
     private static MongoClient mongoClient;
 
 
@@ -30,8 +33,17 @@ public class Repositories {
         return null;
     }
 
+    private static Albums buildAlbumsRepository() {
+        if (Environment.REPOSITORY.equals("MONGO")) {
+            mongoClient = createMongoClient();
+            return new MongoAlbumRepository(mongoClient);
+        }
+        return null;
+    }
+
     static {
         artists = buildArtistRepository();
+        albums = buildAlbumsRepository();
     }
 
 }

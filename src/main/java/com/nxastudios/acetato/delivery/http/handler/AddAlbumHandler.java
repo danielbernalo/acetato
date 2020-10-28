@@ -1,18 +1,24 @@
 package com.nxastudios.acetato.delivery.http.handler;
 
+import com.nxastudios.acetato.core.action.AddAlbum;
 import com.nxastudios.acetato.core.action.AddArtist;
-import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
+import com.nxastudios.acetato.core.action.AddTrack;
+import com.nxastudios.acetato.core.infrastructure.services.converter.AlbumDTO;
 import io.vertx.core.json.Json;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
-public class AddArtistsHandler implements Handler {
-    private static final String PATH = "/artist";
-    private AddArtist addArtists;
+public class AddAlbumHandler implements Handler {
+    private static final String PATH = "/album";
+    private AddAlbum addAlbum;
+    private AddArtist addArtist;
+    private AddTrack addTrack;
 
-    public AddArtistsHandler(AddArtist addArtists) {
+    public AddAlbumHandler(AddAlbum addAlbum) {
 
-        this.addArtists = addArtists;
+        this.addAlbum = addAlbum;
+        this.addArtist = addArtist;
+        this.addTrack = addTrack;
     }
 
     @Override
@@ -21,9 +27,9 @@ public class AddArtistsHandler implements Handler {
     }
 
     private void handle(RoutingContext context) {
-        ArtistDTO artistDTO = Json.decodeValue(context.getBodyAsString(), ArtistDTO.class);
+        AlbumDTO albumDTO = Json.decodeValue(context.getBodyAsString(), AlbumDTO.class);
 
-        addArtists.execute(artistDTO)
+        addAlbum.execute(albumDTO)
                 .subscribe(() -> onSuccess(context), error -> onError(context, error));
     }
 

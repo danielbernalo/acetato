@@ -1,7 +1,7 @@
 package com.nxastudios.acetato.delivery.http.handler;
 
-import com.nxastudios.acetato.core.action.UpdateArtist;
-import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
+import com.nxastudios.acetato.core.action.UpdateAlbum;
+import com.nxastudios.acetato.core.infrastructure.services.converter.AlbumDTO;
 import com.nxastudios.acetato.delivery.http.handler.errors.MissingParameterException;
 import io.reactivex.Single;
 import io.vertx.core.json.Json;
@@ -9,13 +9,13 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
-public class UpdateArtistsHandler implements Handler {
-    private static final String PATH = "/artist";
-    private UpdateArtist updateArtist;
+public class UpdateAlbumHandler implements Handler {
+    private static final String PATH = "/album";
+    private UpdateAlbum updateAlbum;
 
-    public UpdateArtistsHandler(UpdateArtist updateArtist) {
+    public UpdateAlbumHandler(UpdateAlbum updateAlbum) {
 
-        this.updateArtist = updateArtist;
+        this.updateAlbum = updateAlbum;
     }
 
     @Override
@@ -24,15 +24,15 @@ public class UpdateArtistsHandler implements Handler {
     }
 
     private void handle(RoutingContext context) {
-        ArtistDTO artistDTO = Json.decodeValue(context.getBodyAsString(), ArtistDTO.class);
-        Single.just(artistDTO)
-                .flatMap(artist -> {
-                    if (artist.id() == null){
+        AlbumDTO albumDTO = Json.decodeValue(context.getBodyAsString(), AlbumDTO.class);
+        Single.just(albumDTO)
+                .flatMap(album -> {
+                    if (album.id() == null){
                        return  Single.error(new MissingParameterException("_id"));
                     }
-                   return Single.just(artist);
+                   return Single.just(album);
                 })
-                .flatMapCompletable(artist -> updateArtist.execute(artistDTO))
+                .flatMapCompletable(album -> updateAlbum.execute(albumDTO))
                 .subscribe(() -> onSuccess(context), error -> onError(context, error));
 
     }
