@@ -3,10 +3,13 @@ package com.nxastudios.acetato.core.infrastructure.repositories.services.convert
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nxastudios.acetato.core.domain.Artist;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.bson.codecs.pojo.annotations.BsonId;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ArtistDTO {
 
@@ -23,14 +26,28 @@ public class ArtistDTO {
         this.name = name;
     }
 
-    public String name() {
-        return name;
-    }
-
     @BsonId
     public String id() {
         return artistId;
     }
+
+    public static List<ArtistDTO> buildFrom(List<Artist> artists) {
+        return artists.stream()
+                .map(artist -> ArtistDTO.buildFrom(artist))
+                .collect(Collectors.toList());
+    }
+
+    public static List<ArtistDTO> buildFrom(JsonArray artists) {
+        return artists
+                .stream()
+                .map(i -> ArtistDTO.buildFrom(((JsonObject) i)))
+                .collect(Collectors.toList());
+    }
+
+    public String name() {
+        return name;
+    }
+
 
     public static ArtistDTO buildFrom(Artist artist) {
         return new ArtistDTO(artist.getArtistId(), artist.getName());
@@ -39,6 +56,13 @@ public class ArtistDTO {
     public static ArtistDTO buildFrom(JsonObject json) {
         return new ArtistDTO(json.getString("_id"), json.getString("name"));
     }
+
+    public static List<Artist> mapArtistsFrom(List<ArtistDTO> artists) {
+        return artists.stream()
+                .map(artistDTO -> new Artist(artistDTO))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public boolean equals(Object o) {

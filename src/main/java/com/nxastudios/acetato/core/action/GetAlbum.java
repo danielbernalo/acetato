@@ -12,7 +12,7 @@ public class GetAlbum {
         this.albumsRepository = albumsRepository;
     }
 
-    public Single<Album> execute(AlbumId idAlbum) {
+    public Single<Album> execute(String idAlbum) {
         return albumsRepository.getOne(idAlbum);
     }
 }

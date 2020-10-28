@@ -12,7 +12,7 @@ public class DeleteAlbum {
     }
 
 
-    public Completable execute(AlbumId idAlbum) {
+    public Completable execute(String idAlbum) {
         return albumsRepository.remove(idAlbum);
     }
 }

@@ -5,6 +5,7 @@ import com.nxastudios.acetato.core.domain.AlbumId;
 import com.nxastudios.acetato.core.domain.Albums;
 import io.reactivex.Single;
 
+import java.util.List;
 import java.util.Map;
 
 public class ListAlbum {
@@ -14,7 +15,7 @@ public class ListAlbum {
         this.albumsRepository = albumsRepository;
     }
 
-    public Single<Map<AlbumId, Album>> execute() {
+    public Single<List<Album>> execute() {
         return albumsRepository.list();
     }
 }
