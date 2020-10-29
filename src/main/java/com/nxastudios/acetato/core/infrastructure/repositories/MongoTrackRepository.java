@@ -58,6 +58,7 @@ public class MongoTrackRepository implements Tracks {
                         .collect(Collectors.toList()))
                 .toList();
     }
+
     private JsonObject buildModelAlbumFrom(Album album) {
         JsonObject jsonObject = new JsonObject()
 

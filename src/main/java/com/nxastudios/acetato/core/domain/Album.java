@@ -41,7 +41,7 @@ public class Album {
 
     public Album(AlbumDTO albumDTO) {
 
-        this.albumId = albumDTO.id() != null ? new AlbumId(albumDTO.id()): null;
+        this.albumId = albumDTO.id() != null ? new AlbumId(albumDTO.id()) : null;
         this.title = albumDTO.title();
         this.releaseDate = albumDTO.releaseDate();
         this.artists = ArtistDTO.mapArtistsFrom(albumDTO.artists());

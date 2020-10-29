@@ -24,20 +24,6 @@ public class AddAlbumTest {
     private Albums repository;
     private Completable result;
 
-    @Test
-    public void albumIsAddedThenShouldBeSuccessfully() {
-        //given
-        giveAnAlbum();
-        givenAnRepository();
-        givenAnAction();
-
-        //when
-        whenNewAlbumAdded();
-
-        //then
-        thenShouldBeCompleted();
-    }
-
     private static Track giveNewTrack() {
         return new Track.Builder()
                 .withTitle("Nice job bob!")
@@ -50,6 +36,20 @@ public class AddAlbumTest {
                 .withName("bob")
                 .withId("1")
                 .build();
+    }
+
+    @Test
+    public void albumIsAddedThenShouldBeSuccessfully() {
+        //given
+        giveAnAlbum();
+        givenAnRepository();
+        givenAnAction();
+
+        //when
+        whenNewAlbumAdded();
+
+        //then
+        thenShouldBeCompleted();
     }
 
     private void thenShouldBeCompleted() {
