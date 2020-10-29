@@ -2,9 +2,7 @@ import com.nxastudios.acetato.core.action.GetArtist;
 import com.nxastudios.acetato.core.domain.Artist;
 import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
-import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.vertx.core.json.JsonObject;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;

@@ -6,6 +6,7 @@ import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
 import com.nxastudios.acetato.core.infrastructure.services.converter.TrackDTO;
 import org.bson.codecs.pojo.annotations.BsonId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Album {
@@ -38,13 +39,24 @@ public class Album {
         this.type = type;
     }
 
-    public Album(AlbumDTO artistDTO) {
-        this.albumId = new AlbumId(artistDTO.id());
-        this.title = artistDTO.title();
-        this.releaseDate = artistDTO.releaseDate();
-        this.artists = ArtistDTO.mapArtistsFrom(artistDTO.artists());
-        this.tracks = TrackDTO.mapTracksFrom(artistDTO.tracks());
-        this.type = artistDTO.type();
+    public Album(AlbumDTO albumDTO) {
+
+        this.albumId = new AlbumId(albumDTO.id());
+        this.title = albumDTO.title();
+        this.releaseDate = albumDTO.releaseDate();
+        this.artists = ArtistDTO.mapArtistsFrom(albumDTO.artists());
+        this.tracks = TrackDTO.mapTracksFrom(albumDTO.tracks());
+        this.type = albumDTO.type();
+        System.out.println("Album transformed");
+    }
+
+    public Album() {
+        this.albumId = new AlbumId("");
+        this.title = "";
+        this.releaseDate = 0L;
+        this.artists = new ArrayList();
+        this.tracks = new ArrayList();
+        this.type = AlbumType.valueOf(null);
     }
 
     public String getTitle() {

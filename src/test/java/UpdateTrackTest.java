@@ -23,6 +23,18 @@ public class UpdateTrackTest {
     private Tracks repository;
     private Completable result;
 
+    private static Album givenNewAlbum() {
+        return new Album.Builder()
+                .withTitle("anAlbum")
+                .build();
+    }
+
+    private static Artist giveNewArtist() {
+        return new Artist.Builder()
+                .withName("bob")
+                .build();
+    }
+
     @Test
     public void trackIsAddedThenShouldBeSuccessfully() {
         //given
@@ -35,18 +47,6 @@ public class UpdateTrackTest {
 
         //then
         thenShouldBeCompleted();
-    }
-
-    private static Album givenNewAlbum() {
-        return new Album.Builder()
-                .withTitle("anAlbum")
-                .build();
-    }
-
-    private static Artist giveNewArtist() {
-        return new Artist.Builder()
-                .withName("bob")
-                .build();
     }
 
     private void thenShouldBeCompleted() {

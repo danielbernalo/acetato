@@ -27,10 +27,10 @@ public class UpdateArtistsHandler implements Handler {
         ArtistDTO artistDTO = Json.decodeValue(context.getBodyAsString(), ArtistDTO.class);
         Single.just(artistDTO)
                 .flatMap(artist -> {
-                    if (artist.id() == null){
-                       return  Single.error(new MissingParameterException("_id"));
+                    if (artist.id() == null) {
+                        return Single.error(new MissingParameterException("_id"));
                     }
-                   return Single.just(artist);
+                    return Single.just(artist);
                 })
                 .flatMapCompletable(artist -> updateArtist.execute(artistDTO))
                 .subscribe(() -> onSuccess(context), error -> onError(context, error));

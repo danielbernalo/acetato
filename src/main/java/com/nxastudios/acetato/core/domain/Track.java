@@ -1,14 +1,12 @@
 package com.nxastudios.acetato.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
 import com.nxastudios.acetato.core.infrastructure.services.converter.TrackDTO;
-import org.bson.codecs.pojo.annotations.BsonId;
 
 import java.util.List;
 
 public class Track {
-    @BsonId
+
     @JsonProperty("_id")
     private TrackId trackId;
 
@@ -44,11 +42,12 @@ public class Track {
     public Track(TrackDTO trackDTO) {
         this.trackId = new TrackId(trackDTO.getTrackId());
         this.title = trackDTO.getTitle();
-        this.album = new Album(trackDTO.getAlbum());
-        this.artists = ArtistDTO.mapArtistsFrom(trackDTO.getArtists());
+//        this.album = new Album(trackDTO.getAlbum());
+//        this.artists = ArtistDTO.mapArtistsFrom(trackDTO.getArtists());
         this.discNumber = trackDTO.getDiscNumber();
         this.duration = trackDTO.getDuration();
         this.trackNumber = trackDTO.getTrackNumber();
+        System.out.println("Track Created");
     }
 
 

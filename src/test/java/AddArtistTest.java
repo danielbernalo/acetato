@@ -1,5 +1,7 @@
 import com.nxastudios.acetato.core.action.AddArtist;
-import com.nxastudios.acetato.core.domain.*;
+import com.nxastudios.acetato.core.domain.Artist;
+import com.nxastudios.acetato.core.domain.ArtistId;
+import com.nxastudios.acetato.core.domain.Artists;
 import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
 import io.reactivex.Completable;
 import org.junit.Test;
@@ -53,7 +55,7 @@ public class AddArtistTest {
                 .withName(name)
                 .build();
 
-        artistDTO =  ArtistDTO.buildFrom(artist);
+        artistDTO = ArtistDTO.buildFrom(artist);
     }
 
 }

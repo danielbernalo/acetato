@@ -27,10 +27,10 @@ public class UpdateAlbumHandler implements Handler {
         AlbumDTO albumDTO = Json.decodeValue(context.getBodyAsString(), AlbumDTO.class);
         Single.just(albumDTO)
                 .flatMap(album -> {
-                    if (album.id() == null){
-                       return  Single.error(new MissingParameterException("_id"));
+                    if (album.id() == null) {
+                        return Single.error(new MissingParameterException("_id"));
                     }
-                   return Single.just(album);
+                    return Single.just(album);
                 })
                 .flatMapCompletable(album -> updateAlbum.execute(albumDTO))
                 .subscribe(() -> onSuccess(context), error -> onError(context, error));

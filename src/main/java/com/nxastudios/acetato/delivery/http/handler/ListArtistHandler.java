@@ -24,7 +24,7 @@ public class ListArtistHandler implements Handler {
     private void handle(RoutingContext context) {
         listArtist.execute()
                 .toFlowable()
-                .flatMapIterable(i -> i.stream().map(entries ->  JsonObject.mapFrom(entries)).collect(Collectors.toList()))
+                .flatMapIterable(i -> i.stream().map(entries -> JsonObject.mapFrom(entries)).collect(Collectors.toList()))
                 .toList()
                 .subscribe(items -> onSuccess(context, items), error -> onError(context, error));
 

@@ -1,7 +1,7 @@
 import com.nxastudios.acetato.core.action.GetTrack;
+import com.nxastudios.acetato.core.domain.Track;
 import com.nxastudios.acetato.core.domain.TrackId;
 import com.nxastudios.acetato.core.domain.Tracks;
-import com.nxastudios.acetato.core.domain.Track;
 import io.reactivex.Single;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class GetTrackTest {
     }
 
     private void thenGetAnTrackSuccefully() {
-        result.test().assertValue(it -> it.getTrackId().equals(trackId.get()));
+        result.test().assertValue(it -> it.getTrackId().equals(trackId.toString()));
     }
 
     private void whenGetTrackExecute() {

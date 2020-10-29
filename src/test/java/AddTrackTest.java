@@ -1,5 +1,4 @@
 import com.nxastudios.acetato.core.action.AddTrack;
-import com.nxastudios.acetato.core.domain.Tracks;
 import com.nxastudios.acetato.core.domain.*;
 import io.reactivex.Completable;
 import org.junit.Test;
@@ -24,6 +23,18 @@ public class AddTrackTest {
     private Tracks repository;
     private Completable result;
 
+    private static Album givenNewAlbum() {
+        return new Album.Builder()
+                .withTitle("anAlbum")
+                .build();
+    }
+
+    private static Artist giveNewArtist() {
+        return new Artist.Builder()
+                .withName("bob")
+                .build();
+    }
+
     @Test
     public void albumIsAddedThenShouldBeSuccessfully() {
         //given
@@ -36,18 +47,6 @@ public class AddTrackTest {
 
         //then
         thenShouldBeCompleted();
-    }
-
-    private static Album givenNewAlbum() {
-        return new Album.Builder()
-                .withTitle("anAlbum")
-                .build();
-    }
-
-    private static Artist giveNewArtist() {
-        return new Artist.Builder()
-                .withName("bob")
-                .build();
     }
 
     private void thenShouldBeCompleted() {

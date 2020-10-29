@@ -13,12 +13,13 @@ En cuanto a diseno y arquitectura, utlizaremos Domain Driven Design (DDD), desar
 
 El centro vendria ser el core de dominio del sistema, es por lo que el servicio existe y vendria a ser lo mas importante. 
 
-|    Capa (Layer)   |       package      |
-|-------------------|--------------------|
-|Entities           |core.domain         |
-|Use Cases          |core.action         |
-|Interface, Adapters|core.domain         |
-|Repositories, DTOs |core.infrastructure |
+|    Capa (Layer)   |                   package             |
+|-------------------|---------------------------------------|
+|Entities           |core.domain                            |
+|Use Cases          |core.action                            |
+|Interface, Adapters|core.domain                            |
+|Repositories       |core.infrastructure                    |
+|Domain Service     |core.infrastructure.services.converter |
 |API http           |delivery.http       |
   
 ### Dependiencias

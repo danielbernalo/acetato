@@ -2,8 +2,6 @@ package com.nxastudios.acetato.delivery.http.handler;
 
 
 import com.nxastudios.acetato.core.action.DeleteArtist;
-import com.nxastudios.acetato.core.domain.ArtistId;
-import com.nxastudios.acetato.core.domain.errors.ArtistNotFound;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;

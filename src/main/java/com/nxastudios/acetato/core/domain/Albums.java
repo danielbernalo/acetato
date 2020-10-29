@@ -4,7 +4,6 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 
 import java.util.List;
-import java.util.Map;
 
 public interface Albums {
     Completable put(Album album);
@@ -12,5 +11,6 @@ public interface Albums {
     Completable remove(AlbumId albumId);
 
     Single<Album> getOne(AlbumId albumId);
+
     Single<List<Album>> list();
 }

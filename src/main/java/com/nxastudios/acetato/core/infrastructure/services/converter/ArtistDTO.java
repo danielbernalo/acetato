@@ -7,28 +7,32 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.bson.codecs.pojo.annotations.BsonId;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ArtistDTO {
+public class ArtistDTO implements Serializable {
+    private static final String ARTIST_ID = "_id";
+    private static final String NAME = "name";
 
-    @JsonProperty("name")
+    @JsonProperty(NAME)
     private String name;
 
     @BsonId
-    @JsonProperty("_id")
+    @JsonProperty(ARTIST_ID)
     private String artistId;
 
     @JsonCreator
-    public ArtistDTO(@BsonId @JsonProperty("_id") String artistId, @JsonProperty("name") String name) {
+    public ArtistDTO(@BsonId @JsonProperty(ARTIST_ID) String artistId, @JsonProperty(NAME) String name) {
         this.artistId = artistId;
         this.name = name;
     }
 
-    @BsonId
-    public String id() {
-        return artistId;
+    @JsonCreator
+    public ArtistDTO() {
+
     }
 
     public static List<ArtistDTO> buildFrom(List<Artist> artists) {
@@ -44,25 +48,29 @@ public class ArtistDTO {
                 .collect(Collectors.toList());
     }
 
-    public String name() {
-        return name;
-    }
-
-
     public static ArtistDTO buildFrom(Artist artist) {
         return new ArtistDTO(artist.getArtistId(), artist.getName());
     }
 
     public static ArtistDTO buildFrom(JsonObject json) {
-        return new ArtistDTO(json.getString("_id"), json.getString("name"));
+        return new ArtistDTO(json.getString(ARTIST_ID, ""), json.getString(NAME, ""));
     }
 
     public static List<Artist> mapArtistsFrom(List<ArtistDTO> artists) {
+        if (artists == null) return new ArrayList();
         return artists.stream()
                 .map(artistDTO -> new Artist(artistDTO))
                 .collect(Collectors.toList());
     }
 
+    @BsonId
+    public String id() {
+        return artistId;
+    }
+
+    public String name() {
+        return name;
+    }
 
     @Override
     public boolean equals(Object o) {

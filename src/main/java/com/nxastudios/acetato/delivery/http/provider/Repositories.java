@@ -16,9 +16,13 @@ public class Repositories {
     private static MongoClient mongoClient;
 
 
-
     private static JsonObject mongoOptions = new JsonObject()
             .put("connection_string", Environment.MONGO_URI);
+
+    static {
+        artists = buildArtistRepository();
+        albums = buildAlbumsRepository();
+    }
 
     public static MongoClient createMongoClient() {
         MongoClient shared = MongoClient.createShared(vertx, mongoOptions);
@@ -39,11 +43,6 @@ public class Repositories {
             return new MongoAlbumRepository(mongoClient);
         }
         return null;
-    }
-
-    static {
-        artists = buildArtistRepository();
-        albums = buildAlbumsRepository();
     }
 
 }

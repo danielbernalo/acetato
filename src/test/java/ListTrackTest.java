@@ -5,6 +5,7 @@ import com.nxastudios.acetato.core.domain.Tracks;
 import io.reactivex.Single;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.mock;
@@ -15,7 +16,7 @@ public class ListTrackTest {
     private Tracks tracksRepository;
     private TrackId trackId = new TrackId("1-123-13");
     private ListTrack action;
-    private Single<Map<TrackId, Track>> result;
+    private Single<List<Track>> result;
 
     @Test
     public void listTrackSuccessfully() {
@@ -37,11 +38,11 @@ public class ListTrackTest {
 
     private void givenTrackRepository() {
         tracksRepository = mock(Tracks.class);
-        when(tracksRepository.list()).thenReturn(Single.just(Map.of(trackId, track)));
+        when(tracksRepository.list()).thenReturn(Single.just(List.of(track)));
     }
 
     private void thenListTrackShouldReturnOneWithIdTrack() {
-        result.test().assertValue(it -> it.containsKey(trackId));
+        result.test().assertValue(it -> it.get(0).equals(trackId));
     }
 
     private void whenListTrackExecute() {

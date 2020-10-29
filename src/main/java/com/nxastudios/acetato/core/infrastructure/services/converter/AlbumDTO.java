@@ -7,30 +7,41 @@ import com.nxastudios.acetato.core.domain.AlbumType;
 import io.vertx.core.json.JsonObject;
 import org.bson.codecs.pojo.annotations.BsonId;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class AlbumDTO {
+public class AlbumDTO implements Serializable {
+
+    private static final String ALBUM_ID = "_id";
+    private static final String TITLE = "title";
+    private static final String RELEASE_DATE = "release_date";
+    private static final String ARTISTS = "artists";
+    private static final String TRACKS = "tracks";
+    private static final String ALBUM_TYPE = "type";
+
+
     @BsonId
-    @JsonProperty("_id")
+    @JsonProperty(ALBUM_ID)
     private String albumId;
 
-    @JsonProperty("title")
+    @JsonProperty(TITLE)
     private String title;
 
-    @JsonProperty("release_date")
+    @JsonProperty(RELEASE_DATE)
     private Long releaseDate;
 
-    @JsonProperty("artists")
+    @JsonProperty(ARTISTS)
     private List<ArtistDTO> artists;
 
-    @JsonProperty("tracks")
+    @JsonProperty(TRACKS)
     private List<TrackDTO> tracks;
 
-    @JsonProperty("type")
+    @JsonProperty(ALBUM_TYPE)
     private AlbumType type;
 
     @JsonCreator
-    public AlbumDTO(@BsonId @JsonProperty("_id") String albumId, @JsonProperty("title") String title, @JsonProperty("release_date") Long releaseDate, @JsonProperty("artists") List<ArtistDTO> artists, @JsonProperty("tracks") List<TrackDTO> tracks, @JsonProperty("type") AlbumType type) {
+    public AlbumDTO(@BsonId @JsonProperty(ALBUM_ID) String albumId, @JsonProperty(TITLE) String title, @JsonProperty(RELEASE_DATE) Long releaseDate, @JsonProperty(ARTISTS) List<ArtistDTO> artists, @JsonProperty(TRACKS) List<TrackDTO> tracks, @JsonProperty(ALBUM_TYPE) AlbumType type) {
 
         this.albumId = albumId;
         this.title = title;
@@ -40,19 +51,28 @@ public class AlbumDTO {
         this.type = type;
     }
 
+    @JsonCreator
+    public AlbumDTO() {
+
+    }
+
     public static AlbumDTO buildFrom(Album album) {
         return new AlbumDTO(album.getAlbumId(), album.getTitle(), album.getReleaseDate(), ArtistDTO.buildFrom(album.getArtists()), TrackDTO.buildFrom(album.getTracks()), album.getType());
     }
 
     public static AlbumDTO buildFrom(JsonObject json) {
+        String id = json.getString(ALBUM_ID) != null ? json.getString(ALBUM_ID) : "";
+        List<ArtistDTO> artists = json.getJsonArray(ARTISTS) != null ? ArtistDTO.buildFrom(json.getJsonArray(ARTISTS)) : new ArrayList();
+        List<TrackDTO> tracks = json.getJsonArray(TRACKS) != null ? TrackDTO.buildFrom(json.getJsonArray(TRACKS)) : new ArrayList();
         return new AlbumDTO(
-                json.getString("_id"),
-                json.getString("title"),
-                json.getLong("release_date"),
-                ArtistDTO.buildFrom(json.getJsonArray("artists")),
-                TrackDTO.buildFrom(json.getJsonArray("tracks")),
-                AlbumType.valueOf(json.getString("type"))
+                id,
+                json.getString(TITLE, ""),
+                json.getLong(RELEASE_DATE, 0L),
+                artists,
+                tracks,
+                AlbumType.valueOf(json.getString(ALBUM_TYPE, "ALBUM"))
         );
+
     }
 
     public String title() {

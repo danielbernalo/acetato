@@ -34,7 +34,7 @@ public class GetAlbumTest {
     }
 
     private void whenGetAlbumExecute() {
-        result = action.execute(idAlbum);
+        result = action.execute(idAlbum.toString());
     }
 
     private void givenGetAlbumAction() {

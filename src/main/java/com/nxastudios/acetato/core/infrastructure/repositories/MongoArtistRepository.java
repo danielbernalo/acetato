@@ -13,10 +13,11 @@ import io.vertx.reactivex.ext.mongo.MongoClient;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.nxastudios.acetato.core.infrastructure.repositories.Constants.ARTIST_ID;
+import static com.nxastudios.acetato.core.infrastructure.repositories.Constants.ARTIST_NAME;
+
 public class MongoArtistRepository implements Artists {
 
-    private static final String ARTIST_ID = "_id";
-    private static final String NAME = "name";
 
     private static final String COLLECTION_NAME = "artists";
 
@@ -61,7 +62,7 @@ public class MongoArtistRepository implements Artists {
         JsonObject jsonObject = new JsonObject();
         if (artist.getArtistId() != "")
             jsonObject.put(ARTIST_ID, artist.getArtistId());
-        jsonObject.put(NAME, artist.getName());
+        jsonObject.put(ARTIST_NAME, artist.getName());
 
         return jsonObject;
     }

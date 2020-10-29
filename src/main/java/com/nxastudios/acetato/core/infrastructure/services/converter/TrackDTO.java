@@ -2,45 +2,59 @@ package com.nxastudios.acetato.core.infrastructure.services.converter;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nxastudios.acetato.core.domain.Album;
+import com.nxastudios.acetato.core.domain.Artist;
 import com.nxastudios.acetato.core.domain.Track;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.bson.codecs.pojo.annotations.BsonId;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TrackDTO {
+public class TrackDTO implements Serializable {
+
+    private static final String TRACK_ID = "_id";
+    private static final String TITLE = "title";
+    private static final String ALBUM = "album";
+    private static final String ARTISTS = "artists";
+    private static final String DURATION = "duration";
+    private static final String DISC_NUMBER = "disc_number";
+    private static final String TRACK_NUMBER = "track_number";
+
+
     @BsonId
-    @JsonProperty("_id")
+    @JsonProperty(TRACK_ID)
     private String trackId;
 
-    @JsonProperty("title")
+    @JsonProperty(TITLE)
     private String title;
 
-    @JsonProperty("album")
+    @JsonProperty(ALBUM)
     private AlbumDTO album;
 
-    @JsonProperty("artists")
+    @JsonProperty(ARTISTS)
     private List<ArtistDTO> artists;
 
-    @JsonProperty("duration")
+    @JsonProperty(DURATION)
     private Long duration;
 
-    @JsonProperty("disc_number")
+    @JsonProperty(DISC_NUMBER)
     private Integer discNumber;
 
-    @JsonProperty("track_number")
+    @JsonProperty(TRACK_NUMBER)
     private Integer trackNumber;
 
     @JsonCreator
-    public TrackDTO(@BsonId @JsonProperty("_id") String trackId,
-                    @JsonProperty("title") String title,
-                    @JsonProperty("album") AlbumDTO album,
-                    @JsonProperty("") List<ArtistDTO> artists,
-                    @JsonProperty("name") Long duration,
-                    @JsonProperty("name") Integer discNumber,
-                    @JsonProperty("name") Integer trackNumber) {
+    public TrackDTO(@BsonId @JsonProperty(TRACK_ID) String trackId,
+                    @JsonProperty(TITLE) String title,
+                    @JsonProperty(ALBUM) AlbumDTO album,
+                    @JsonProperty(ARTISTS) List<ArtistDTO> artists,
+                    @JsonProperty(DURATION) Long duration,
+                    @JsonProperty(DISC_NUMBER) Integer discNumber,
+                    @JsonProperty(TRACK_NUMBER) Integer trackNumber) {
 
         this.trackId = trackId;
         this.title = title;
@@ -55,6 +69,7 @@ public class TrackDTO {
         return tracks.stream()
                 .map(track -> TrackDTO.buildFrom(track))
                 .collect(Collectors.toList());
+
     }
 
     public static List<TrackDTO> buildFrom(JsonArray tracks) {
@@ -65,21 +80,40 @@ public class TrackDTO {
     }
 
     public static TrackDTO buildFrom(JsonObject json) {
+        AlbumDTO albumDTO = json.getJsonObject(ALBUM) != null ? AlbumDTO.buildFrom(json.getJsonObject(ALBUM)) : new AlbumDTO();
+        List<ArtistDTO> artistDTOS = json.getJsonObject(ALBUM) != null ? ArtistDTO.buildFrom(json.getJsonArray(ARTISTS)) : new ArrayList();
+
         return new TrackDTO(
-                json.getString("_id"),
-                json.getString("title"),
-                AlbumDTO.buildFrom(json.getJsonObject("album")),
-                ArtistDTO.buildFrom(json.getJsonArray("artists")),
-                json.getLong("duration"),
-                json.getInteger("disc_number"),
-                json.getInteger("track_number")
+                json.getString(TRACK_ID, ""),
+                json.getString(TITLE, ""),
+                albumDTO,
+                artistDTOS,
+                json.getLong(DURATION, 0L),
+                json.getInteger(DISC_NUMBER, 0),
+                json.getInteger(TRACK_NUMBER, 0)
         );
     }
 
     public static List<Track> mapTracksFrom(List<TrackDTO> tracks) {
+        if (tracks == null) return new ArrayList();
         return tracks.stream()
                 .map(trackDTO -> new Track(trackDTO))
                 .collect(Collectors.toList());
+    }
+
+    private static TrackDTO buildFrom(Track track) {
+        Album album = track.getAlbum() != null ? track.getAlbum() : new Album();
+        List<Artist> artists = track.getArtists() != null ? track.getArtists() : new ArrayList();
+
+        return new TrackDTO(
+                track.getTrackId(),
+                track.getTitle(),
+                AlbumDTO.buildFrom(album),
+                ArtistDTO.buildFrom(artists),
+                track.getDuration(),
+                track.getDiscNumber(),
+                track.getTrackNumber()
+        );
     }
 
     public String getTrackId() {
@@ -108,17 +142,5 @@ public class TrackDTO {
 
     public Integer getTrackNumber() {
         return trackNumber;
-    }
-
-    private static TrackDTO buildFrom(Track track) {
-        return new TrackDTO(
-                track.getTrackId(),
-                track.getTitle(),
-                AlbumDTO.buildFrom(track.getAlbum()),
-                ArtistDTO.buildFrom(track.getArtists()),
-                track.getDuration(),
-                track.getDiscNumber(),
-                track.getTrackNumber()
-        );
     }
 }
