@@ -21,5 +21,13 @@ public class Routes {
         new GetAlbumHandler(Actions.getAlbum).register(router);
         new DeleteAlbumHandler(Actions.deleteAlbum).register(router);
         new UpdateAlbumHandler(Actions.updateAlbum).register(router);
+
+        //track
+        new AddTrackHandler(Actions.addTrack).register(router);
+        new ListTrackHandler(Actions.listTrack).register(router);
+        new GetTrackHandler(Actions.getTrack).register(router);
+        new DeleteTrackHandler(Actions.deleteTrack).register(router);
+        new UpdateTrackHandler(Actions.updateTrack).register(router);
+
     }
 }

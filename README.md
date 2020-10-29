@@ -301,8 +301,22 @@ Status code : `404`
 curl  -X POST 'http://localhost:8080/albums' \
 --header 'Content-Type: application/json' \
 -d '{
-    "name": "Metallica"
-}'
+        "title": "No es verdad",
+        "release_date": 1603759420,
+        "artists": [
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Jaime Jack Jr."
+            }
+        ],
+        "tracks": [
+             {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "title": "You are Beautiful"
+            }
+        ],
+        "type": "ALBUM"
+    }'
 ```
 
 ##### Response success
@@ -330,9 +344,216 @@ Sin cuerpo.
 curl -X PUT 'http://localhost:8080/album' \
 --header 'Content-Type: application/json' \
 -d '{
-    "_id": "5f96296d2f590315aeeccbd8",
-    "name": "Shakira, Jr."
-}'
+        "_id": "5f9a331472ab0a5e3519465c",
+        "title": "No es verdad",
+        "release_date": 1603759420,
+        "artists": [
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Jaime Jack Jr."
+            }
+        ],
+        "tracks": [
+             {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "title": "You are Beautiful"
+            }
+        ],
+        "type": "ALBUM"
+    }'
+```
+Parametro obligatorio: `_id`
+
+##### Response success
+
+Status code : `201` 
+
+Sin cuerpo.
+
+##### Response failure 
+
+Status Code: `400`
+
+```json
+{
+    "error": "Parameter: _id is required."
+}
+```
+
+
+#### Track
+
+|  Metodo  |              Endpoint              |       Descripcion        |
+|----------|------------------------------------|--------------------------|
+|GET       |[/tracks](#listTracks)              | Lista todos los tracks   |
+|GET       |[/track/:trackId](#getTrack)        | Obtiene uno por id       |
+|POST      |[/track](#addTrack)                 | Agrega un track          |
+|DELETE    |[/track/:trackId](#deleteTrack)     | Elimina uno por id       |
+|PUT       |[/track](#updateTrack)              | Actualiza un track       |
+
+##### Listar todos los trackes <a name="listTracks"></a>
+
+
+```
+curl -X GET 'http://localhost:8080/tracks'
+```
+
+##### Response success
+
+```json
+[
+    {
+        "_id": "5f9a3d189ac58a6d51d57087",
+        "title": "Track Nro. 11",
+        "album": {
+            "_id": "5f9a331472ab0a5e3519465c",
+            "title": "No es verdad",
+            "release_date": null,
+            "artists": null,
+            "tracks": null,
+            "type": "ALBUM"
+        },
+        "artists": [
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Jaime Jack Jr."
+            },
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Brame Jack Jr."
+            }
+        ],
+        "duration": 120,
+        "disc_number": 1,
+        "track_number": 11
+    }
+]
+```
+
+##### Obtener un Track por ID <a name="getTrack"></a>
+
+```
+curl -X GET 'http://localhost:8080/track/:trackId'
+```
+
+##### Response success
+
+```json
+    {
+        "_id": "5f9a3d189ac58a6d51d57087",
+        "title": "Track Nro. 11",
+        "album": {
+            "_id": "5f9a331472ab0a5e3519465c",
+            "title": "No es verdad",
+            "release_date": null,
+            "artists": null,
+            "tracks": null,
+            "type": "ALBUM"
+        },
+        "artists": [
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Jaime Jack Jr."
+            },
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Brame Jack Jr."
+            }
+        ],
+        "duration": 120,
+        "disc_number": 1,
+        "track_number": 11
+    }
+```
+
+##### Response failure
+
+Status code : `404`
+
+```json
+{
+    "error": "Track Not Found"
+}
+```
+
+##### Crear un nuevo track <a name="addTrack"></a>
+
+```
+curl  -X POST 'http://localhost:8080/tracks' \
+--header 'Content-Type: application/json' \
+-d '{
+        "title": "Track Nro. 1",
+        "album": {
+            "_id": "5f9a331472ab0a5e3519465c",
+            "title": "No es verdad",
+               "type": "ALBUM"
+        },
+        "artists": [
+            {
+                    "_id": "5f95c35b5f72bf2dceb4916e",
+                    "name": "Jaime Jack Jr."
+                },
+                {
+                    "_id": "5f95c35b5f72bf2dceb4916e",
+                    "name": "Brame Jack Jr."
+                }
+        ],
+        "duration": 120,
+        "disc_number": 1,
+        "track_number": 11
+    
+     
+    }'
+```
+
+##### Response success
+
+Status code : `201` 
+
+Sin cuerpo
+
+##### Eliminar track <a name="deleteTrack"></a>
+
+```
+curl  -X DELETE 'http://localhost:8080/track/:trackId'
+```
+
+##### Response success
+
+Status code : `204` 
+
+Sin cuerpo.
+
+
+##### Actualizar track <a name="updateTrack"></a>
+
+```
+curl -X PUT 'http://localhost:8080/track' \
+--header 'Content-Type: application/json' \
+-d '{
+            "_id": "5f9a331472ab0a5e3519465c",
+            "title": "Track Nro. 1",
+            "album": {
+                "_id": "5f9a331472ab0a5e3519465c",
+                "title": "No es verdad",
+                   "type": "ALBUM"
+            },
+            "artists": [
+                {
+                        "_id": "5f95c35b5f72bf2dceb4916e",
+                        "name": "Jaime Jack Jr."
+                    },
+                    {
+                        "_id": "5f95c35b5f72bf2dceb4916e",
+                        "name": "Brame Jack Jr."
+                    }
+            ],
+            "duration": 120,
+            "disc_number": 1,
+            "track_number": 11
+        
+         
+        }'
 ```
 Parametro obligatorio: `_id`
 

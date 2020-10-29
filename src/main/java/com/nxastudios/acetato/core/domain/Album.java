@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Album {
     @BsonId
-    @JsonProperty("album_id")
+    @JsonProperty("_id")
     private final AlbumId albumId;
 
     @JsonProperty("title")
@@ -41,7 +41,7 @@ public class Album {
 
     public Album(AlbumDTO albumDTO) {
 
-        this.albumId = albumDTO.id() != null ? new AlbumId(albumDTO.id()): null;
+        this.albumId = albumDTO.id() != null ? new AlbumId(albumDTO.id()) : null;
         this.title = albumDTO.title();
         this.releaseDate = albumDTO.releaseDate();
         this.artists = ArtistDTO.mapArtistsFrom(albumDTO.artists());
@@ -56,6 +56,15 @@ public class Album {
         this.artists = new ArrayList();
         this.tracks = new ArrayList();
         this.type = AlbumType.valueOf(null);
+    }
+
+    public static Album mapAlbumFrom(AlbumDTO album) {
+        return new Album.Builder()
+                .withTitle(album.title())
+                .withId(album.id())
+                .withType(album.type())
+                .withReleaseDate(album.releaseDate())
+                .build();
     }
 
     public String getTitle() {

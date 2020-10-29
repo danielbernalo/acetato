@@ -11,7 +11,7 @@ public class DeleteTrack {
         this.tracks = tracks;
     }
 
-    public Completable execute(TrackId idTrack) {
-        return tracks.remove(idTrack);
+    public Completable execute(String trackId) {
+        return tracks.remove(new TrackId(trackId));
     }
 }

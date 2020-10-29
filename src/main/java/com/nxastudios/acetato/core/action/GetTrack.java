@@ -12,7 +12,7 @@ public class GetTrack {
         this.tracksRepository = tracksRepository;
     }
 
-    public Single<Track> execute(TrackId idTrack) {
-        return tracksRepository.getOne(idTrack);
+    public Single<Track> execute(String idTrack) {
+        return tracksRepository.getOne(new TrackId(idTrack));
     }
 }

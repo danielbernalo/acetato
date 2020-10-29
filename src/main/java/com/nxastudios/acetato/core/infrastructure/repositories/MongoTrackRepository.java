@@ -1,12 +1,11 @@
 package com.nxastudios.acetato.core.infrastructure.repositories;
 
-import com.nxastudios.acetato.core.domain.Track;
-import com.nxastudios.acetato.core.domain.TrackId;
-import com.nxastudios.acetato.core.domain.Tracks;
+import com.nxastudios.acetato.core.domain.*;
 import com.nxastudios.acetato.core.domain.errors.TrackNotFound;
 import com.nxastudios.acetato.core.infrastructure.services.converter.TrackDTO;
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.mongo.MongoClient;
 
@@ -60,17 +59,39 @@ public class MongoTrackRepository implements Tracks {
                 .toList();
     }
 
+    private JsonObject buildModelAlbumFrom(Album album) {
+        JsonObject jsonObject = new JsonObject()
+
+                .put(ALBUM_TITLE, album.getTitle())
+                .put(ALBUM_RELEASE_DATE, album.getReleaseDate())
+                .put(ALBUM_ALBUM_TYPE, album.getType());
+        if (album.getAlbumId() != "")
+            jsonObject.put(ALBUM_ID, album.getAlbumId());
+
+        return jsonObject;
+    }
+
+    private JsonArray buildModelArtistFrom(List<Artist> artists) {
+        JsonArray jsonArtist = new JsonArray();
+        artists.forEach(artist -> jsonArtist.add(
+                new JsonObject()
+                        .put("name", artist.getName())
+                        .put(ARTIST_ID, artist.getArtistId())
+        ));
+        return jsonArtist;
+    }
+
     private JsonObject buildModelTrackFrom(Track track) {
         JsonObject jsonObject = new JsonObject()
 
                 .put(TRACK_TITLE, track.getTitle())
-                .put(TRACK_ALBUM, track.getAlbum())
-                .put(TRACK_ARTISTS, track.getArtists())
+                .put(TRACK_ALBUM, buildModelAlbumFrom(track.getAlbum()))
+                .put(TRACK_ARTISTS, buildModelArtistFrom(track.getArtists()))
                 .put(TRACK_DURATION, track.getDuration())
                 .put(TRACK_DISC_NUMBER, track.getDiscNumber())
                 .put(TRACK_NUMBER, track.getTrackNumber());
 
-        if (track.getTrackId() != null)
+        if (track.getTrackId() != "")
             jsonObject.put(TRACK_ID, track.getTrackId());
 
         return jsonObject;
