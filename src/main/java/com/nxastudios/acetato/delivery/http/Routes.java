@@ -14,5 +14,12 @@ public class Routes {
         new GetArtistHandler(Actions.getArtist).register(router);
         new DeleteArtistHandler(Actions.deleteArtist).register(router);
         new UpdateArtistsHandler(Actions.updateArtist).register(router);
+
+        //album
+        new AddAlbumHandler(Actions.addAlbum).register(router);
+        new ListAlbumHandler(Actions.listAlbum).register(router);
+        new GetAlbumHandler(Actions.getAlbum).register(router);
+        new DeleteAlbumHandler(Actions.deleteAlbum).register(router);
+        new UpdateAlbumHandler(Actions.updateAlbum).register(router);
     }
 }

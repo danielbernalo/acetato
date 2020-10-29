@@ -10,6 +10,11 @@ public class Actions {
     public static GetArtist getArtist;
     public static DeleteArtist deleteArtist;
     public static UpdateArtist updateArtist;
+    public static AddAlbum addAlbum;
+    public static ListAlbum listAlbum;
+    public static GetAlbum getAlbum;
+    public static DeleteAlbum deleteAlbum;
+    public static UpdateAlbum updateAlbum;
 
     static {
 
@@ -19,5 +24,12 @@ public class Actions {
         getArtist = new GetArtist(Repositories.artists);
         deleteArtist = new DeleteArtist(Repositories.artists);
         updateArtist = new UpdateArtist(Repositories.artists);
+
+        //album
+        addAlbum = new AddAlbum(Repositories.albums);
+        listAlbum = new ListAlbum(Repositories.albums);
+        getAlbum = new GetAlbum(Repositories.albums);
+        deleteAlbum = new DeleteAlbum(Repositories.albums);
+        updateAlbum = new UpdateAlbum(Repositories.albums);
     }
 }

@@ -4,20 +4,23 @@ import com.nxastudios.acetato.core.domain.Artist;
 import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
 import com.nxastudios.acetato.core.domain.errors.ArtistNotFound;
-import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
+import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
 import io.reactivex.Completable;
-import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.mongo.MongoClient;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import static com.nxastudios.acetato.core.infrastructure.repositories.Constants.ARTIST_ID;
+import static com.nxastudios.acetato.core.infrastructure.repositories.Constants.ARTIST_NAME;
 
 public class MongoArtistRepository implements Artists {
 
+
     private static final String COLLECTION_NAME = "artists";
+
     private final MongoClient client;
 
     public MongoArtistRepository(MongoClient client) {
@@ -34,16 +37,13 @@ public class MongoArtistRepository implements Artists {
         JsonObject query = new JsonObject().put("_id", artistId.toString());
         return Completable.fromMaybe(client.rxRemoveDocument(COLLECTION_NAME, query));
 
-
     }
 
     @Override
     public Single<Artist> getOne(ArtistId artistId) {
         JsonObject query = new JsonObject().put("_id", artistId.toString());
         return client.rxFindOne(COLLECTION_NAME, query, new JsonObject())
-                .map(item -> {
-                    return new Artist(ArtistDTO.buildFrom(item));
-                }).toSingle()
+                .map(item -> new Artist(ArtistDTO.buildFrom(item))).toSingle()
                 .onErrorResumeNext(throwable -> Single.error(new ArtistNotFound()));
     }
 
@@ -61,8 +61,8 @@ public class MongoArtistRepository implements Artists {
     private JsonObject buildModelArtistFrom(Artist artist) {
         JsonObject jsonObject = new JsonObject();
         if (artist.getArtistId() != "")
-            jsonObject.put("_id", artist.getArtistId());
-        jsonObject.put("name", artist.getName());
+            jsonObject.put(ARTIST_ID, artist.getArtistId());
+        jsonObject.put(ARTIST_NAME, artist.getName());
 
         return jsonObject;
     }

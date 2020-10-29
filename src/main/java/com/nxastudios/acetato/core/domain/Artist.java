@@ -1,14 +1,14 @@
 package com.nxastudios.acetato.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
+import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
 
 import java.util.Objects;
 
 
 public class Artist {
 
-    @JsonProperty("artist_id")
+    @JsonProperty("_id")
     private final ArtistId artistId;
 
     @JsonProperty("name")
@@ -19,8 +19,32 @@ public class Artist {
         this.artistId = artistId;
     }
 
+    public Artist(ArtistDTO artistDTO) {
+        this.name = artistDTO.name();
+        this.artistId = artistDTO.id() != "" ? new ArtistId(artistDTO.id()) : null;
+    }
+
+
     public String getName() {
         return name;
+    }
+
+    public String getArtistId() {
+        return artistId.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artist artist = (Artist) o;
+        return Objects.equals(artistId, artist.artistId) &&
+                Objects.equals(name, artist.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(artistId, name);
     }
 
     public static class Builder {
@@ -40,28 +64,5 @@ public class Artist {
         public Artist build() {
             return new Artist(artistId, name);
         }
-    }
-
-    public String getArtistId() {
-        return artistId.toString();
-    }
-
-    public Artist(ArtistDTO artistDTO) {
-        this.name = artistDTO.name();
-        this.artistId = artistDTO.id() != "" ? new ArtistId(artistDTO.id()) : null;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Artist artist = (Artist) o;
-        return Objects.equals(artistId, artist.artistId) &&
-                Objects.equals(name, artist.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(artistId, name);
     }
 }

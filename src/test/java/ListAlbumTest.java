@@ -5,6 +5,7 @@ import com.nxastudios.acetato.core.domain.Albums;
 import io.reactivex.Single;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.mock;
@@ -15,7 +16,7 @@ public class ListAlbumTest {
     private Albums albumsRepository;
     private AlbumId idAlbum = new AlbumId("1-b-1");
     private ListAlbum action;
-    private Single<Map<AlbumId, Album>> result;
+    private Single<List<Album>> result;
 
     @Test
     public void listAlbumSuccessfully() {
@@ -37,11 +38,11 @@ public class ListAlbumTest {
 
     private void givenAlbumRepository() {
         albumsRepository = mock(Albums.class);
-        when(albumsRepository.list()).thenReturn(Single.just(Map.of(idAlbum, album)));
+        when(albumsRepository.list()).thenReturn(Single.just(List.of(album)));
     }
 
     private void thenListAlbumShouldReturnOneWithIdAlbum() {
-        result.test().assertValue(it -> it.containsKey(idAlbum));
+        result.test().assertValue(it -> it.get(0).getAlbumId().equals(idAlbum));
     }
 
     private void whenListAlbumExecute() {
@@ -49,7 +50,7 @@ public class ListAlbumTest {
     }
 
     private void givenNewAlbumFrom(AlbumId idAlbum) {
-        album = new Album.Builder().withId(idAlbum).build();
+        album = new Album.Builder().withId(idAlbum.toString()).build();
     }
 
 }

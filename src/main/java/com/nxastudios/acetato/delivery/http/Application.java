@@ -20,7 +20,7 @@ public class Application {
         RxHelper.blockingScheduler(vertx, false);
         RxJavaPlugins.setIoSchedulerHandler(scheduler -> RxHelper.blockingScheduler(vertx));
         RxJavaPlugins.setNewThreadSchedulerHandler(scheduler -> RxHelper.scheduler(vertx));
-        RxJavaPlugins.setSingleSchedulerHandler( scheduler-> RxHelper.scheduler(vertx));
+        RxJavaPlugins.setSingleSchedulerHandler(scheduler -> RxHelper.scheduler(vertx));
         RxJavaPlugins.setErrorHandler((error) -> logger.error("Unhandled exception: " + error.getLocalizedMessage()));
     }
 }

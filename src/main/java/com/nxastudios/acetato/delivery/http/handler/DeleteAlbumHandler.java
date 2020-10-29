@@ -1,17 +1,17 @@
 package com.nxastudios.acetato.delivery.http.handler;
 
 
-import com.nxastudios.acetato.core.action.DeleteArtist;
+import com.nxastudios.acetato.core.action.DeleteAlbum;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
-public class DeleteArtistHandler implements Handler {
-    private static final String PATH = "/artist/:artistId";
-    private DeleteArtist deleteArtist;
+public class DeleteAlbumHandler implements Handler {
+    private static final String PATH = "/album/:albumId";
+    private DeleteAlbum deleteAlbum;
 
-    public DeleteArtistHandler(DeleteArtist deleteArtist) {
-        this.deleteArtist = deleteArtist;
+    public DeleteAlbumHandler(DeleteAlbum deleteAlbum) {
+        this.deleteAlbum = deleteAlbum;
     }
 
     @Override
@@ -21,8 +21,8 @@ public class DeleteArtistHandler implements Handler {
 
     private void handle(RoutingContext context) {
 
-        String artistId = context.pathParam("artistId");
-        deleteArtist.execute(artistId).subscribe(() -> onSuccess(context), error -> onError(context, error));
+        String albumId = context.pathParam("albumId");
+        deleteAlbum.execute(albumId).subscribe(() -> onSuccess(context), error -> onError(context, error));
     }
 
     private void onError(RoutingContext context, Throwable error) {

@@ -30,11 +30,11 @@ public class GetAlbumTest {
     }
 
     private void thenGetAnAlbumSuccessfully() {
-        result.test().assertValue(it -> it.getIdAlbum().equals(idAlbum.get()));
+        result.test().assertValue(it -> it.getAlbumId().equals(idAlbum.toString()));
     }
 
     private void whenGetAlbumExecute() {
-        result = action.execute(idAlbum);
+        result = action.execute(idAlbum.toString());
     }
 
     private void givenGetAlbumAction() {
@@ -47,7 +47,7 @@ public class GetAlbumTest {
     }
 
     private void givenNewAlbumFrom(AlbumId idAlbum) {
-        album = new Album.Builder().withId(idAlbum).build();
+        album = new Album.Builder().withId(idAlbum.toString()).build();
     }
 }
 

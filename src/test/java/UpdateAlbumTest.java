@@ -1,5 +1,6 @@
 import com.nxastudios.acetato.core.action.UpdateAlbum;
 import com.nxastudios.acetato.core.domain.*;
+import com.nxastudios.acetato.core.infrastructure.services.converter.AlbumDTO;
 import io.reactivex.Completable;
 import org.junit.Test;
 
@@ -23,6 +24,18 @@ public class UpdateAlbumTest {
     private Albums repository;
     private Completable result;
 
+    private static Track giveNewTrack() {
+        return new Track.Builder()
+                .withTitle("Nice job bob!")
+                .build();
+    }
+
+    private static Artist giveNewArtist() {
+        return new Artist.Builder()
+                .withName("bob")
+                .build();
+    }
+
     @Test
     public void albumIsAddedThenShouldBeSuccessfully() {
         //given
@@ -37,24 +50,12 @@ public class UpdateAlbumTest {
         thenShouldBeCompleted();
     }
 
-    private static Track giveNewTrack() {
-        return new Track.Builder()
-                .withTitle("Nice job bob!")
-                .build();
-    }
-
-    private static Artist giveNewArtist() {
-        return new Artist.Builder()
-                .withName("bob")
-                .build();
-    }
-
     private void thenShouldBeCompleted() {
         result.test().assertComplete();
     }
 
     private void whenNewAlbumAdded() {
-        result = action.execute(album);
+        result = action.execute(AlbumDTO.buildFrom(album));
     }
 
     private void givenAnAction() {
@@ -68,7 +69,7 @@ public class UpdateAlbumTest {
 
     private void giveAnAlbumFrom(AlbumId idAlbum, String title, Long releaseDate, List<Artist> artists, List<Track> tracks, AlbumType type) {
         album = new Album.Builder()
-                .withId(idAlbum)
+                .withId(idAlbum.toString())
                 .withTitle(title)
                 .withArtists(artists)
                 .withReleaseDate(releaseDate)

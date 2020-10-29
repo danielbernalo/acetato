@@ -1,6 +1,6 @@
 package com.nxastudios.acetato.delivery.http.handler;
 
-import com.nxastudios.acetato.core.action.ListArtist;
+import com.nxastudios.acetato.core.action.ListAlbum;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;
@@ -8,12 +8,12 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListArtistHandler implements Handler {
-    private static final String PATH = "/artists";
-    private ListArtist listArtist;
+public class ListAlbumHandler implements Handler {
+    private static final String PATH = "/albums";
+    private ListAlbum listAlbum;
 
-    public ListArtistHandler(ListArtist listArtist) {
-        this.listArtist = listArtist;
+    public ListAlbumHandler(ListAlbum listAlbum) {
+        this.listAlbum = listAlbum;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class ListArtistHandler implements Handler {
     }
 
     private void handle(RoutingContext context) {
-        listArtist.execute()
+        listAlbum.execute()
                 .toFlowable()
                 .flatMapIterable(i -> i.stream().map(entries -> JsonObject.mapFrom(entries)).collect(Collectors.toList()))
                 .toList()

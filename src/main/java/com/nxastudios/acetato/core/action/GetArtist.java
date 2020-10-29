@@ -3,9 +3,6 @@ package com.nxastudios.acetato.core.action;
 import com.nxastudios.acetato.core.domain.Artist;
 import com.nxastudios.acetato.core.domain.ArtistId;
 import com.nxastudios.acetato.core.domain.Artists;
-import com.nxastudios.acetato.core.infrastructure.repositories.services.converter.ArtistDTO;
-import io.reactivex.Maybe;
-import io.reactivex.MaybeObserver;
 import io.reactivex.Single;
 
 public class GetArtist {

@@ -2,6 +2,7 @@ package com.nxastudios.acetato.core.action;
 
 import com.nxastudios.acetato.core.domain.Album;
 import com.nxastudios.acetato.core.domain.Albums;
+import com.nxastudios.acetato.core.infrastructure.services.converter.AlbumDTO;
 import io.reactivex.Completable;
 
 public class AddAlbum {
@@ -11,7 +12,8 @@ public class AddAlbum {
         this.albumsRepository = albumsRepository;
     }
 
-    public Completable execute(Album album) {
-        return this.albumsRepository.put(album);
+    public Completable execute(AlbumDTO albumDTO) {
+        return this.albumsRepository.put(new Album(albumDTO));
     }
+
 }

@@ -1,18 +1,24 @@
 package com.nxastudios.acetato.delivery.http.handler;
 
-import com.nxastudios.acetato.core.action.AddArtist;
-import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
-import io.vertx.core.json.Json;
+import com.nxastudios.acetato.core.action.AddAlbum;
+import com.nxastudios.acetato.core.infrastructure.services.converter.AlbumDTO;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class AddArtistsHandler implements Handler {
-    private static final String PATH = "/artist";
-    private AddArtist addArtists;
 
-    public AddArtistsHandler(AddArtist addArtists) {
+public class AddAlbumHandler implements Handler {
 
-        this.addArtists = addArtists;
+    private static final Logger logger = LoggerFactory.getLogger(AddAlbumHandler.class);
+
+
+    private static final String PATH = "/album";
+    private AddAlbum addAlbum;
+
+    public AddAlbumHandler(AddAlbum addAlbum) {
+
+        this.addAlbum = addAlbum;
     }
 
     @Override
@@ -21,13 +27,15 @@ public class AddArtistsHandler implements Handler {
     }
 
     private void handle(RoutingContext context) {
-        ArtistDTO artistDTO = Json.decodeValue(context.getBodyAsString(), ArtistDTO.class);
+        AlbumDTO albumDTO = AlbumDTO.buildFrom(context.getBodyAsJson());
 
-        addArtists.execute(artistDTO)
+        addAlbum.execute(albumDTO)
                 .subscribe(() -> onSuccess(context), error -> onError(context, error));
     }
 
     private void onError(RoutingContext context, Throwable error) {
+        logger.error(error.getLocalizedMessage(), error);
+
         context.response()
                 .putHeader("Content-Type", "application/json")
                 .setStatusCode(500)
