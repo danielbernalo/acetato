@@ -41,17 +41,16 @@ public class Album {
 
     public Album(AlbumDTO albumDTO) {
 
-        this.albumId = new AlbumId(albumDTO.id());
+        this.albumId = albumDTO.id() != null ? new AlbumId(albumDTO.id()): null;
         this.title = albumDTO.title();
         this.releaseDate = albumDTO.releaseDate();
         this.artists = ArtistDTO.mapArtistsFrom(albumDTO.artists());
         this.tracks = TrackDTO.mapTracksFrom(albumDTO.tracks());
         this.type = albumDTO.type();
-        System.out.println("Album transformed");
     }
 
     public Album() {
-        this.albumId = new AlbumId("");
+        this.albumId = null;
         this.title = "";
         this.releaseDate = 0L;
         this.artists = new ArrayList();

@@ -64,7 +64,7 @@ public class MongoAlbumRepository implements Albums {
                 .put(ALBUM_ARTISTS, buildModelArtistFrom(album.getArtists()))
                 .put(ALBUM_TRACKS, buildModelTrackFrom(album.getTracks()))
                 .put(ALBUM_ALBUM_TYPE, album.getType());
-        if (album.getAlbumId() != null)
+        if (album.getAlbumId() != "")
             jsonObject.put(ALBUM_ID, album.getAlbumId());
 
         return jsonObject;

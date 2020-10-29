@@ -47,7 +47,6 @@ public class Track {
         this.discNumber = trackDTO.getDiscNumber();
         this.duration = trackDTO.getDuration();
         this.trackNumber = trackDTO.getTrackNumber();
-        System.out.println("Track Created");
     }
 
 
