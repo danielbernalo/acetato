@@ -5,13 +5,16 @@
 #### Prueba tecnica
 
 
-Implementar un micro-servicio API REST para la empresa nxstudios, utilizando JAVA con VertX y  RX (ReactiveX) frameworks. Quiero aplicar las mejores practicas y ultimas tecnologias para la construcion de micro-servicios.
+Implementar un micro-servicio API REST para la empresa nxstudios, utilizando JAVA con VertX y  RX (ReactiveX) frameworks. Quiero aplicar las mejores practicas y ultimas tecnologias para la construccion de micro-servicios.
 
-En cuanto a diseno y arquitectura, utlizaremos Domain Driven Design (DDD), desarrollando niveles de abstracion por capas de afuera hacia adentro. 
+En cuanto a diseño y arquitectura, utilizamos SOLID, KISS y Domain Driven Design (DDD), desarrollando niveles de abstracción por capas de afuera hacia adentro.
+
+Desarrollo esta pensado, en que el día de manana tenemos que modificar la capa de web/framework Vertx lo podemos cambiar, y el `CORE` queda intacto, al igual si queremos implementar otra base de datos, por ejemplo una relacional, podríamos hacerlo sin afectar el `CORE`
+
 
 ![DDD Example](https://bazaglia.com/img/onion-architecture.png)  
 
-El centro vendria ser el core de dominio del sistema, es por lo que el servicio existe y vendria a ser lo mas importante. 
+El centro vendria ser el core del sistema, es por lo que el servicio existe va a ser lo más importante y lo que tendríamos que tener más foco. 
 
 |    Capa (Layer)   |                   package             |
 |-------------------|---------------------------------------|
@@ -21,6 +24,19 @@ El centro vendria ser el core de dominio del sistema, es por lo que el servicio 
 |Repositories       |core.infrastructure                    |
 |Domain Service     |core.infrastructure.services.converter |
 |API http           |delivery.http       |
+
+
+#### Aclaraciones 
+
+* En la entidad de TRACK, se tomo en cuenta el campo en duracion siempre en segundos, lo que si queremos una duracion formateada no tenemos que guardar el campo dos veces en la base de datos, con crear una funciona format tenemos.
+* Se Genero un  error de tracks y album devolverá algunos campos en null, [se creó un ticket](https://github.com/danielbernalo/acetato/issues/6) intencionalmente para cerrar el ciclo de desarrollo y manejo de tickets en git.
+
+
+#### Mejoras
+
+* En caso de alto trafico y concurrencias, se recomienda crear subdominios y gneerar  un servicio CQRS para manejar comandos y eventos, Vertx tiene un event bus con el que podemos comunicarnos por eventos entre los subdominios. 
+* En cuanto a infra, se puede pensar ya que tenemos esto separado por subdominios independientes, podriamos crear un servicio por cada subdominio y escalarlo segun su trafico.
+
   
 ### Dependiencias
 | Name       | Version |
