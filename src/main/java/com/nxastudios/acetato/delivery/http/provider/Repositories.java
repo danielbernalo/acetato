@@ -3,8 +3,10 @@ package com.nxastudios.acetato.delivery.http.provider;
 import com.nxastudios.acetato.config.Environment;
 import com.nxastudios.acetato.core.domain.Albums;
 import com.nxastudios.acetato.core.domain.Artists;
+import com.nxastudios.acetato.core.domain.Tracks;
 import com.nxastudios.acetato.core.infrastructure.repositories.MongoAlbumRepository;
 import com.nxastudios.acetato.core.infrastructure.repositories.MongoArtistRepository;
+import com.nxastudios.acetato.core.infrastructure.repositories.MongoTrackRepository;
 import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.mongo.MongoClient;
 
@@ -13,6 +15,7 @@ import static com.nxastudios.acetato.delivery.http.provider.VertxProvider.vertx;
 public class Repositories {
     public static Artists artists;
     public static Albums albums;
+    public static Tracks tracks;
     private static MongoClient mongoClient;
 
 
@@ -22,6 +25,7 @@ public class Repositories {
     static {
         artists = buildArtistRepository();
         albums = buildAlbumsRepository();
+        tracks = buildTracksRepository();
     }
 
     public static MongoClient createMongoClient() {
@@ -41,6 +45,14 @@ public class Repositories {
         if (Environment.REPOSITORY.equals("MONGO")) {
             mongoClient = createMongoClient();
             return new MongoAlbumRepository(mongoClient);
+        }
+        return null;
+    }
+
+    private static Tracks buildTracksRepository() {
+        if (Environment.REPOSITORY.equals("MONGO")) {
+            mongoClient = createMongoClient();
+            return new MongoTrackRepository(mongoClient);
         }
         return null;
     }

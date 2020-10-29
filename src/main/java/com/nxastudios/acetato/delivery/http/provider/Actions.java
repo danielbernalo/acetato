@@ -15,6 +15,11 @@ public class Actions {
     public static GetAlbum getAlbum;
     public static DeleteAlbum deleteAlbum;
     public static UpdateAlbum updateAlbum;
+    public static AddTrack addTrack;
+    public static ListTrack listTrack;
+    public static GetTrack getTrack;
+    public static DeleteTrack deleteTrack;
+    public static UpdateTrack updateTrack;
 
     static {
 
@@ -31,5 +36,12 @@ public class Actions {
         getAlbum = new GetAlbum(Repositories.albums);
         deleteAlbum = new DeleteAlbum(Repositories.albums);
         updateAlbum = new UpdateAlbum(Repositories.albums);
+
+        //track
+        addTrack = new AddTrack(Repositories.tracks);
+        listTrack = new ListTrack(Repositories.tracks);
+        getTrack = new GetTrack(Repositories.tracks);
+        deleteTrack = new DeleteTrack(Repositories.tracks);
+        updateTrack = new UpdateTrack(Repositories.tracks);
     }
 }

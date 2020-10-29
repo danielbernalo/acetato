@@ -2,6 +2,7 @@ package com.nxastudios.acetato.core.action;
 
 import com.nxastudios.acetato.core.domain.Track;
 import com.nxastudios.acetato.core.domain.Tracks;
+import com.nxastudios.acetato.core.infrastructure.services.converter.TrackDTO;
 import io.reactivex.Completable;
 
 public class AddTrack {
@@ -12,7 +13,7 @@ public class AddTrack {
         this.tracks = tracks;
     }
 
-    public Completable execute(Track track) {
-        return tracks.put(track);
+    public Completable execute(TrackDTO track) {
+        return tracks.put(new Track(track));
     }
 }
