@@ -195,3 +195,159 @@ Status Code: `400`
     "error": "Parameter: _id is required."
 }
 ```
+
+#### Album
+
+|  Metodo  |              Endpoint              |       Descripcion        |
+|----------|------------------------------------|--------------------------|
+|GET       |[/albums](#listAlbums)              | Lista todos los albums   |
+|GET       |[/album/:albumId](#getAlbum)        | Obtiene uno por id       |
+|POST      |[/album](#addAlbum)                 | Agrega un album          |
+|DELETE    |[/album/:albumId](#deleteAlbum)     | Elimina uno por id       |
+|PUT       |[/album](#updateAlbum)              | Actualiza un album       |
+
+##### Listar todos los albumes <a name="listAlbums"></a>
+
+
+```
+curl -X GET 'http://localhost:8080/albums'
+```
+
+##### Response success
+
+```json
+[
+    {
+        "album_id": "5f9a331472ab0a5e3519465c",
+        "title": "No es verdad",
+        "release_date": 1603759420,
+        "artists": [
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Jaime Jack Jr."
+            },
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Brame Jack Jr."
+            }
+        ],
+        "tracks": [
+            {
+                "_id": "",
+                "title": "You are Beautiful",
+                "album": null,
+                "artists": null,
+                "duration": null,
+                "disc_number": null,
+                "track_number": null
+            }
+        ],
+        "type": "ALBUM"
+    }
+]
+```
+
+##### Obtener un Album por ID <a name="getAlbum"></a>
+
+```
+curl -X GET 'http://localhost:8080/album/:albumId'
+```
+
+##### Response success
+
+```json
+    {
+        "album_id": "5f9a331472ab0a5e3519465c",
+        "title": "No es verdad",
+        "release_date": 1603759420,
+        "artists": [
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Jaime Jack Jr."
+            },
+            {
+                "_id": "5f95c35b5f72bf2dceb4916e",
+                "name": "Brame Jack Jr."
+            }
+        ],
+        "tracks": [
+            {
+                "_id": "",
+                "title": "You are Beautiful",
+                "album": null,
+                "artists": null,
+                "duration": null,
+                "disc_number": null,
+                "track_number": null
+            }
+        ],
+        "type": "ALBUM"
+    }
+```
+
+##### Response failure
+
+Status code : `404`
+
+```json
+{
+    "error": "Album Not Found"
+}
+```
+
+##### Crear un nuevo album <a name="addAlbum"></a>
+
+```
+curl  -X POST 'http://localhost:8080/albums' \
+--header 'Content-Type: application/json' \
+-d '{
+    "name": "Metallica"
+}'
+```
+
+##### Response success
+
+Status code : `201` 
+
+Sin cuerpo
+
+##### Eliminar album <a name="deleteAlbum"></a>
+
+```
+curl  -X DELETE 'http://localhost:8080/album/:albumId'
+```
+
+##### Response success
+
+Status code : `204` 
+
+Sin cuerpo.
+
+
+##### Actualizar album <a name="updateAlbum"></a>
+
+```
+curl -X PUT 'http://localhost:8080/album' \
+--header 'Content-Type: application/json' \
+-d '{
+    "_id": "5f96296d2f590315aeeccbd8",
+    "name": "Shakira, Jr."
+}'
+```
+Parametro obligatorio: `_id`
+
+##### Response success
+
+Status code : `201` 
+
+Sin cuerpo.
+
+##### Response failure 
+
+Status Code: `400`
+
+```json
+{
+    "error": "Parameter: _id is required."
+}
+```
