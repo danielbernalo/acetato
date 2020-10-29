@@ -23,11 +23,12 @@ public class AddAlbumTest {
     private AddAlbum action;
     private Albums repository;
     private Completable result;
+    private AlbumDTO albumDTO;
 
     private static Track giveNewTrack() {
         return new Track.Builder()
                 .withTitle("Nice job bob!")
-                .withIdTrack(new TrackId("1"))
+                .withIdTrack("1")
                 .build();
     }
 
@@ -54,12 +55,12 @@ public class AddAlbumTest {
 
     private void thenShouldBeCompleted() {
         result
-                .doOnError(System.out::println)
                 .test().assertComplete();
+
     }
 
     private void whenNewAlbumAdded() {
-        result = action.execute(AlbumDTO.buildFrom(album));
+        result = action.execute(albumDTO);
     }
 
     private void givenAnAction() {
@@ -80,6 +81,7 @@ public class AddAlbumTest {
                 .withTracks(TRACKS)
                 .withType(TYPE)
                 .build();
+        albumDTO = AlbumDTO.buildFrom(album);
     }
 
 }

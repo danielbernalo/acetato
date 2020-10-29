@@ -1,5 +1,6 @@
 import com.nxastudios.acetato.core.action.UpdateTrack;
 import com.nxastudios.acetato.core.domain.*;
+import com.nxastudios.acetato.core.infrastructure.services.converter.TrackDTO;
 import io.reactivex.Completable;
 import org.junit.Test;
 
@@ -22,6 +23,7 @@ public class UpdateTrackTest {
     private UpdateTrack action;
     private Tracks repository;
     private Completable result;
+    private TrackDTO trackDTO;
 
     private static Album givenNewAlbum() {
         return new Album.Builder()
@@ -54,7 +56,7 @@ public class UpdateTrackTest {
     }
 
     private void whenNewTrackAdded() {
-        result = action.execute(track);
+        result = action.execute(trackDTO);
     }
 
     private void givenAnAction() {
@@ -68,14 +70,13 @@ public class UpdateTrackTest {
 
     private void giveAnTrack(TrackId trackId, List<Artist> artists, Album album, Integer discNumber, String title, Integer trackNumber, Long duration) {
         track = new Track.Builder()
-                .withArtists(artists)
-                .withAlbum(album)
                 .WithDiscNumber(discNumber)
                 .withTitle(title)
                 .withDuration(duration)
                 .withTrackNumber(trackNumber)
-                .withIdTrack(trackId)
+                .withIdTrack(trackId.toString())
                 .build();
+        trackDTO = TrackDTO.buildFrom(track);
     }
 
 }

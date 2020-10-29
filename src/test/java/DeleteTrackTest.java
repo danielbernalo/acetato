@@ -31,7 +31,7 @@ public class DeleteTrackTest {
     }
 
     private void whenGetTrackExecute() {
-        result = action.execute(trackId);
+        result = action.execute(trackId.toString());
     }
 
     private void givenGetTrackAction() {

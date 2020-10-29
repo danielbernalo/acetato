@@ -12,6 +12,7 @@ import org.bson.codecs.pojo.annotations.BsonId;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TrackDTO implements Serializable {
@@ -101,7 +102,7 @@ public class TrackDTO implements Serializable {
                 .collect(Collectors.toList());
     }
 
-    private static TrackDTO buildFrom(Track track) {
+    public static TrackDTO buildFrom(Track track) {
         Album album = track.getAlbum() != null ? track.getAlbum() : new Album();
         List<Artist> artists = track.getArtists() != null ? track.getArtists() : new ArrayList();
 
@@ -142,5 +143,18 @@ public class TrackDTO implements Serializable {
 
     public Integer getTrackNumber() {
         return trackNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TrackDTO trackDTO = (TrackDTO) o;
+        return Objects.equals(trackId, trackDTO.trackId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trackId);
     }
 }

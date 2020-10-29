@@ -10,6 +10,7 @@ import org.bson.codecs.pojo.annotations.BsonId;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AlbumDTO implements Serializable {
 
@@ -57,7 +58,15 @@ public class AlbumDTO implements Serializable {
     }
 
     public static AlbumDTO buildFrom(Album album) {
-        return new AlbumDTO(album.getAlbumId(), album.getTitle(), album.getReleaseDate(), ArtistDTO.buildFrom(album.getArtists()), TrackDTO.buildFrom(album.getTracks()), album.getType());
+
+        List<ArtistDTO> artistDTO = album.getArtists() != null ? ArtistDTO.buildFrom(album.getArtists()): new ArrayList<>();
+        List<TrackDTO> tracksDTO = album.getTracks() != null ? TrackDTO.buildFrom(album.getTracks()) : new ArrayList<>();
+        return new AlbumDTO(album.getAlbumId(),
+                album.getTitle(),
+                album.getReleaseDate(),
+                artistDTO,
+                tracksDTO,
+                album.getType());
     }
 
     public static AlbumDTO buildFrom(JsonObject json) {
@@ -98,5 +107,18 @@ public class AlbumDTO implements Serializable {
     @BsonId
     public String id() {
         return albumId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AlbumDTO albumDTO = (AlbumDTO) o;
+        return Objects.equals(albumId, albumDTO.albumId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(albumId);
     }
 }

@@ -26,15 +26,15 @@ public class GetTrackTest {
         whenGetTrackExecute();
 
         //then
-        thenGetAnTrackSuccefully();
+        thenGetAnTrackSuccessfully();
     }
 
-    private void thenGetAnTrackSuccefully() {
+    private void thenGetAnTrackSuccessfully() {
         result.test().assertValue(it -> it.getTrackId().equals(trackId.toString()));
     }
 
     private void whenGetTrackExecute() {
-        result = action.execute(trackId);
+        result = action.execute(trackId.toString());
     }
 
     private void givenGetTrackAction() {
@@ -48,7 +48,7 @@ public class GetTrackTest {
     }
 
     private void givenNewTrackFrom(TrackId trackId) {
-        track = new Track.Builder().withIdTrack(trackId).build();
+        track = new Track.Builder().withIdTrack(trackId.toString()).build();
     }
 }
 

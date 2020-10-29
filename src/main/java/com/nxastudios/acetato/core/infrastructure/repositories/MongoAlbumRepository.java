@@ -88,7 +88,7 @@ public class MongoAlbumRepository implements Albums {
         JsonArray jsonArtist = new JsonArray();
         artists.forEach(artist -> jsonArtist.add(
                 new JsonObject()
-                        .put("name", artist.getName())
+                        .put(ARTIST_NAME, artist.getName())
                         .put(ARTIST_ID, artist.getArtistId())
         ));
         return jsonArtist;

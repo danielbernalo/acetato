@@ -8,6 +8,7 @@ import org.bson.codecs.pojo.annotations.BsonId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Album {
     @BsonId
@@ -55,7 +56,7 @@ public class Album {
         this.releaseDate = 0L;
         this.artists = new ArrayList();
         this.tracks = new ArrayList();
-        this.type = AlbumType.valueOf(null);
+        this.type = AlbumType.ALBUM;
     }
 
     public static Album mapAlbumFrom(AlbumDTO album) {
@@ -76,6 +77,7 @@ public class Album {
     }
 
     public String getAlbumId() {
+        if (albumId == null) return "";
         return albumId.toString();
     }
 
@@ -135,5 +137,16 @@ public class Album {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Album album = (Album) o;
+        return Objects.equals(albumId, album.albumId);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(albumId);
+    }
 }

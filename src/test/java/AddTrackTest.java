@@ -1,5 +1,6 @@
 import com.nxastudios.acetato.core.action.AddTrack;
 import com.nxastudios.acetato.core.domain.*;
+import com.nxastudios.acetato.core.infrastructure.services.converter.TrackDTO;
 import io.reactivex.Completable;
 import org.junit.Test;
 
@@ -19,6 +20,7 @@ public class AddTrackTest {
     private static final Album ALBUM = givenNewAlbum();
     private static final TrackId ID_TRACK = new TrackId("11-11");
     private Track track;
+    private TrackDTO trackDTO;
     private AddTrack action;
     private Tracks repository;
     private Completable result;
@@ -36,9 +38,9 @@ public class AddTrackTest {
     }
 
     @Test
-    public void albumIsAddedThenShouldBeSuccessfully() {
+    public void trackIsAddedThenShouldBeSuccessfully() {
         //given
-        giveAnTrack(ID_TRACK, ARTISTS, ALBUM, DISC_NUMBER, TITLE, TRACK_NUMBER, DURATION);
+        giveAnTrack(ID_TRACK.toString(), ARTISTS, ALBUM, DISC_NUMBER, TITLE, TRACK_NUMBER, DURATION);
         givenAnRepository();
         givenAnAction();
 
@@ -54,7 +56,7 @@ public class AddTrackTest {
     }
 
     private void whenNewTrackAdded() {
-        result = action.execute(track);
+        result = action.execute(trackDTO);
     }
 
     private void givenAnAction() {
@@ -66,15 +68,14 @@ public class AddTrackTest {
         when(repository.put(track)).thenReturn(Completable.complete());
     }
 
-    private void giveAnTrack(TrackId trackId, List<Artist> artists, Album album, Integer discNumber, String title, Integer trackNumber, Long duration) {
+    private void giveAnTrack(String trackId, List<Artist> artists, Album album, Integer discNumber, String title, Integer trackNumber, Long duration) {
         track = new Track.Builder()
-                .withArtists(artists)
-                .withAlbum(album)
                 .WithDiscNumber(discNumber)
                 .withTitle(title)
                 .withDuration(duration)
                 .withTrackNumber(trackNumber)
                 .withIdTrack(trackId)
                 .build();
+        trackDTO = TrackDTO.buildFrom(track);
     }
 }

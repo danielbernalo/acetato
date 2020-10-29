@@ -5,6 +5,7 @@ import com.nxastudios.acetato.core.infrastructure.services.converter.ArtistDTO;
 import com.nxastudios.acetato.core.infrastructure.services.converter.TrackDTO;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Track {
 
@@ -89,8 +90,8 @@ public class Track {
         private Integer discNumber;
         private Integer trackNumber;
 
-        public Builder withIdTrack(TrackId trackId) {
-            this.trackId = trackId;
+        public Builder withIdTrack(String trackId) {
+            this.trackId = new TrackId(trackId);
             return this;
         }
 
@@ -129,4 +130,17 @@ public class Track {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Track track = (Track) o;
+        return Objects.equals(trackId, track.trackId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trackId);
+    }
 }
