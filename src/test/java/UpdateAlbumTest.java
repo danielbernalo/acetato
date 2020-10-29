@@ -23,6 +23,7 @@ public class UpdateAlbumTest {
     private UpdateAlbum action;
     private Albums repository;
     private Completable result;
+    private AlbumDTO albumDTO;
 
     private static Track giveNewTrack() {
         return new Track.Builder()
@@ -55,7 +56,7 @@ public class UpdateAlbumTest {
     }
 
     private void whenNewAlbumAdded() {
-        result = action.execute(AlbumDTO.buildFrom(album));
+        result = action.execute(albumDTO);
     }
 
     private void givenAnAction() {
@@ -71,11 +72,10 @@ public class UpdateAlbumTest {
         album = new Album.Builder()
                 .withId(idAlbum.toString())
                 .withTitle(title)
-                .withArtists(artists)
                 .withReleaseDate(releaseDate)
-                .withTracks(tracks)
                 .withType(type)
                 .build();
+        albumDTO = AlbumDTO.buildFrom(album);
     }
 
 }

@@ -41,7 +41,8 @@ public class ListTrackTest {
     }
 
     private void thenListTrackShouldReturnOneWithIdTrack() {
-        result.test().assertValue(it -> it.get(0).equals(trackId));
+        result.test().assertValue(it -> it.get(0).getTrackId() == trackId.toString());
+
     }
 
     private void whenListTrackExecute() {
@@ -49,7 +50,7 @@ public class ListTrackTest {
     }
 
     private void givenNewTrackFrom(TrackId trackId) {
-        track = new Track.Builder().withIdTrack(trackId).build();
+        track = new Track.Builder().withIdTrack(trackId.toString()).build();
     }
 
 }

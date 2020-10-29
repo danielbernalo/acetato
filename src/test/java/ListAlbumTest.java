@@ -41,7 +41,8 @@ public class ListAlbumTest {
     }
 
     private void thenListAlbumShouldReturnOneWithIdAlbum() {
-        result.test().assertValue(it -> it.get(0).getAlbumId().equals(idAlbum));
+        result.test().assertValue(it -> it.get(0).getAlbumId() == idAlbum.toString());
+
     }
 
     private void whenListAlbumExecute() {
