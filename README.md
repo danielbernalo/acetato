@@ -1,11 +1,7 @@
-# NXASTUDIOS
-
 ## Acetato API
 
-#### Prueba tecnica
 
-
-Implementar un micro-servicio API REST para la empresa nxstudios, utilizando JAVA con VertX y  RX (ReactiveX) frameworks. Quiero aplicar las mejores practicas y ultimas tecnologias para la construccion de micro-servicios.
+Implementar un micro-servicio API REST, utilizando JAVA con VertX y  RX (ReactiveX) frameworks. Quiero aplicar las mejores practicas y ultimas tecnologias para la construccion de micro-servicios.
 
 En cuanto a diseño y arquitectura, utilizamos SOLID, KISS y Domain Driven Design (DDD), desarrollando niveles de abstracción por capas de afuera hacia adentro.
 
